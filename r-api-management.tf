@@ -14,6 +14,15 @@ resource "azurerm_api_management" "apim" {
     }
   }
 
+  dynamic "certificate" {
+    for_each = var.certificate_configuration
+    content {
+      encoded_certificate  = lookup(certificate.value, "encoded_certificate")
+      certificate_password = lookup(certificate.value, "certificate_password")
+      store_name           = lookup(certificate.value, "store_name")
+    }
+  }
+
   identity {
     type = "SystemAssigned"
   }

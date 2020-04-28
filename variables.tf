@@ -67,6 +67,12 @@ variable "additional_location" {
   default     = []
 }
 
+variable "certificate_configuration" {
+  type        = list(map(string))
+  description = "List of certificate configurations"
+  default     = []
+}
+
 variable "enable_http2" {
   type        = bool
   description = "Should HTTP/2 be supported by the API Management Service?"

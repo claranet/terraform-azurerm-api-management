@@ -62,6 +62,7 @@ module "apim" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | additional\_location | The name of the Azure Region in which the API Management Service should be expanded to. | `list(string)` | `[]` | no |
+| certificate\_configuration | List of certificate configurations | `list(map(string))` | `[]` | no |
 | client\_name | Client name/account used in naming | `string` | n/a | yes |
 | custom\_name | Custom API Management name, generated if not set | `string` | `""` | no |
 | enable\_http2 | Should HTTP/2 be supported by the API Management Service? | `bool` | `false` | no |
