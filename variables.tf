@@ -3,9 +3,15 @@ variable "client_name" {
   type        = string
 }
 
-variable "custom_name" {
-  description = "Custom name used for the resource"
+variable "name_prefix" {
+  description = "Optional prefix for Network Security Group name"
   type        = string
+  default     = ""
+}
+
+variable "custom_name" {
+  description = "Custom API Management name, generated if not set"
+  default     = ""
 }
 
 variable "environment" {
@@ -42,6 +48,7 @@ variable "extra_tags" {
 variable "sku_name" {
   type        = string
   description = "String consisting of two parts separated by an underscore. The fist part is the name, valid values include: Developer, Basic, Standard and Premium. The second part is the capacity"
+  default     = "Basic_1"
 }
 
 variable "publisher_name" {

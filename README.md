@@ -52,7 +52,7 @@ module "apim" {
   stack          = var.stack
 
   sku_name        = "Standard_1"
-  publisher_name  = "BRS ApiManager"
+  publisher_name  = "Contoso ApiManager"
   publisher_email = "api_manager@test.com"
 }
 ```
@@ -63,7 +63,7 @@ module "apim" {
 |------|-------------|------|---------|:--------:|
 | additional\_location | The name of the Azure Region in which the API Management Service should be expanded to. | `list(string)` | `[]` | no |
 | client\_name | Client name/account used in naming | `string` | n/a | yes |
-| custom\_name | Custom name used for the resource | `string` | n/a | yes |
+| custom\_name | Custom API Management name, generated if not set | `string` | `""` | no |
 | enable\_http2 | Should HTTP/2 be supported by the API Management Service? | `bool` | `false` | no |
 | enable\_sign\_in | Should anonymous users be redirected to the sign in page? | `bool` | `false` | no |
 | enable\_sign\_up | Can users sign up on the development portal? | `bool` | `false` | no |
@@ -72,6 +72,7 @@ module "apim" {
 | location | Azure location for Eventhub. | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
 | management\_hostname\_configuration | List of management hostname configurations | `list(map(string))` | `[]` | no |
+| name\_prefix | Optional prefix for Network Security Group name | `string` | `""` | no |
 | notification\_sender\_email | Email address from which the notification will be sent | `string` | `null` | no |
 | policy\_configuration | Map of policy configuration | `map(string)` | `{}` | no |
 | portal\_hostname\_configuration | List of portal hostname configurations | `list(map(string))` | `[]` | no |
@@ -81,7 +82,7 @@ module "apim" {
 | resource\_group\_name | Name of the resource group | `string` | n/a | yes |
 | scm\_hostname\_configuration | List of scm hostname configurations | `list(map(string))` | `[]` | no |
 | security\_configuration | Map of security configuration | `map(string)` | `{}` | no |
-| sku\_name | String consisting of two parts separated by an underscore. The fist part is the name, valid values include: Developer, Basic, Standard and Premium. The second part is the capacity | `string` | n/a | yes |
+| sku\_name | String consisting of two parts separated by an underscore. The fist part is the name, valid values include: Developer, Basic, Standard and Premium. The second part is the capacity | `string` | `"Basic_1"` | no |
 | stack | Project stack name | `string` | n/a | yes |
 | terms\_of\_service\_configuration | Map of terms of service configuration | `map(string)` | `{}` | no |
 
