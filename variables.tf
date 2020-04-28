@@ -138,3 +138,15 @@ variable "security_configuration" {
   description = "Map of security configuration"
   default     = {}
 }
+
+variable "virtual_network_type" {
+  type        = string
+  description = "The type of virtual network you want to use, valid values include: None, External, Internal."
+  default     = null
+}
+
+variable "virtual_network_configuration" {
+  type        = list(string)
+  description = "The id(s) of the subnet(s) that will be used for the API Management. Required when virtual_network_type is External or Internal"
+  default     = []
+}
