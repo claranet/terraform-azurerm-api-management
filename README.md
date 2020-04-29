@@ -86,6 +86,11 @@ module "apim" {
 | sku\_name | String consisting of two parts separated by an underscore. The fist part is the name, valid values include: Developer, Basic, Standard and Premium. The second part is the capacity | `string` | `"Basic_1"` | no |
 | stack | Project stack name | `string` | n/a | yes |
 | terms\_of\_service\_configuration | Map of terms of service configuration | `list(map(string))` | `[]` | no |
+<<<<<<< HEAD
+=======
+| virtual\_network\_configuration | The id(s) of the subnet(s) that will be used for the API Management. Required when virtual\_network\_type is External or Internal | `list(string)` | `[]` | no |
+| virtual\_network\_type | The type of virtual network you want to use, valid values include: None, External, Internal. | `string` | `null` | no |
+>>>>>>> AZ-228 Add outputs & update type of term of service var
 
 ## Outputs
 
