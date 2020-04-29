@@ -1,3 +1,8 @@
+output "api_management_name" {
+  description = "The name of the API Management Service"
+  value       = azurerm_api_management.apim.name
+}
+
 output "api_management_id" {
   description = "The ID of the API Management Service"
   value       = azurerm_api_management.apim.id

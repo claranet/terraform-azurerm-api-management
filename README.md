@@ -85,7 +85,7 @@ module "apim" {
 | security\_configuration | Map of security configuration | `map(string)` | `{}` | no |
 | sku\_name | String consisting of two parts separated by an underscore. The fist part is the name, valid values include: Developer, Basic, Standard and Premium. The second part is the capacity | `string` | `"Basic_1"` | no |
 | stack | Project stack name | `string` | n/a | yes |
-| terms\_of\_service\_configuration | Map of terms of service configuration | `map(string)` | `{}` | no |
+| terms\_of\_service\_configuration | Map of terms of service configuration | `list(map(string))` | `[]` | no |
 
 ## Outputs
 
@@ -96,6 +96,7 @@ module "apim" {
 | api\_management\_gateway\_url | The URL of the Gateway for the API Management Service |
 | api\_management\_id | The ID of the API Management Service |
 | api\_management\_management\_api\_url | The URL for the Management API associated with this API Management service |
+| api\_management\_name | The name of the API Management Service |
 | api\_management\_portal\_url | The URL for the Publisher Portal associated with this API Management service |
 | api\_management\_public\_ip\_addresses | The Public IP addresses of the API Management Service |
 | api\_management\_scm\_url | The URL for the SCM Endpoint associated with this API Management service |

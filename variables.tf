@@ -128,9 +128,9 @@ variable "enable_sign_up" {
 }
 
 variable "terms_of_service_configuration" {
-  type        = map(string)
+  type        = list(map(string))
   description = "Map of terms of service configuration"
-  default     = {}
+  default     = []
 }
 
 variable "security_configuration" {
