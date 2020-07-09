@@ -88,13 +88,13 @@ resource "azurerm_api_management" "apim" {
   dynamic "security" {
     for_each = var.security_configuration
     content {
-      disable_backend_ssl30      = lookup(security.value, "disable_backend_ssl30", false)
-      disable_backend_tls10      = lookup(security.value, "disable_backend_tls10", false)
-      disable_backend_tls11      = lookup(security.value, "disable_backend_tls11", false)
-      disable_frontend_ssl30     = lookup(security.value, "disable_frontend_ssl30", false)
-      disable_frontend_tls10     = lookup(security.value, "disable_frontend_tls10", false)
-      disable_frontend_tls11     = lookup(security.value, "disable_frontend_tls11", false)
-      disable_triple_des_ciphers = lookup(security.value, "disable_triple_des_ciphers", false)
+      enable_backend_ssl30      = lookup(security.value, "enable_backend_ssl30", false)
+      enable_backend_tls10      = lookup(security.value, "enable_backend_tls10", false)
+      enable_backend_tls11      = lookup(security.value, "enable_backend_tls11", false)
+      enable_frontend_ssl30     = lookup(security.value, "enable_frontend_ssl30", false)
+      enable_frontend_tls10     = lookup(security.value, "enable_frontend_tls10", false)
+      enable_frontend_tls11     = lookup(security.value, "enable_frontend_tls11", false)
+      enable_triple_des_ciphers = lookup(security.value, "enable_triple_des_ciphers", false)
     }
   }
 
@@ -111,6 +111,15 @@ resource "azurerm_api_management" "apim" {
         enabled          = lookup(terms_of_service.value, "enabled")
         text             = lookup(terms_of_service.value, "text")
       }
+    }
+  }
+
+  virtual_network_type = var.virtual_network_type
+
+  dynamic "virtual_network_configuration" {
+    for_each = toset(var.virtual_network_configuration)
+    content {
+      subnet_id = virtual_network_configuration.value
     }
   }
 
