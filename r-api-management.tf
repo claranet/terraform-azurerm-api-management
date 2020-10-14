@@ -24,7 +24,7 @@ resource "azurerm_api_management" "apim" {
   }
 
   identity {
-    type = "SystemAssigned"
+    type = var.identity_type
   }
 
   hostname_configuration {
