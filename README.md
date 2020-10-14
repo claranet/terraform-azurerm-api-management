@@ -46,7 +46,7 @@ module "apim" {
   version = "x.x.x"
 
   location       = module.azure-region.location
-  location-short = module.azure-region.location_short
+  location_short = module.azure-region.location_short
   client_name    = var.client_name
   environment    = var.environment
   stack          = var.stack
