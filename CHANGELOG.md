@@ -1,3 +1,8 @@
+# v3.0.1 - 2020-10-14
+
+Added
+  * AZ-264 Added new variable to handle identity plus corresponding output
+
 # v3.0.0 - 2020-07-09
 
 Breaking

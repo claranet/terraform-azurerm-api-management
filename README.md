@@ -46,7 +46,7 @@ module "apim" {
   version = "x.x.x"
 
   location       = module.azure-region.location
-  location-short = module.azure-region.location-short
+  location-short = module.azure-region.location_short
   client_name    = var.client_name
   environment    = var.environment
   stack          = var.stack
@@ -70,6 +70,7 @@ module "apim" {
 | enable\_sign\_up | Can users sign up on the development portal? | `bool` | `false` | no |
 | environment | Project environment | `string` | n/a | yes |
 | extra\_tags | Extra tags to add | `map(string)` | `{}` | no |
+| identity\_type | Type of Managed Service Identity that should be configured on this API Management Service | `string` | `"SystemAssigned"` | no |
 | location | Azure location for Eventhub. | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
 | management\_hostname\_configuration | List of management hostname configurations | `list(map(string))` | `[]` | no |
@@ -97,6 +98,7 @@ module "apim" {
 | api\_management\_gateway\_regional\_url | The Region URL for the Gateway of the API Management Service |
 | api\_management\_gateway\_url | The URL of the Gateway for the API Management Service |
 | api\_management\_id | The ID of the API Management Service |
+| api\_management\_identity\_id | The ID of the managed identity of the APIM |
 | api\_management\_management\_api\_url | The URL for the Management API associated with this API Management service |
 | api\_management\_name | The name of the API Management Service |
 | api\_management\_portal\_url | The URL for the Publisher Portal associated with this API Management service |

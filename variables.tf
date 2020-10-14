@@ -150,3 +150,8 @@ variable "virtual_network_configuration" {
   description = "The id(s) of the subnet(s) that will be used for the API Management. Required when virtual_network_type is External or Internal"
   default     = []
 }
+
+variable "identity_type" {
+  description = "Type of Managed Service Identity that should be configured on this API Management Service"
+  default     = "SystemAssigned"
+}
