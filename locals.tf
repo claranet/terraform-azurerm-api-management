@@ -8,4 +8,6 @@ locals {
     env   = var.environment
     stack = var.stack
   }
+
+  diag_settings_name = var.diag_settings_name != "" ? var.diag_settings_name : join("-", [local.default_name, "diag-settings"])
 }

@@ -145,6 +145,8 @@ variable "security_configuration" {
   default     = {}
 }
 
+### NETWORKING
+
 variable "virtual_network_type" {
   type        = string
   description = "The type of virtual network you want to use, valid values include: None, External, Internal."
@@ -156,6 +158,22 @@ variable "virtual_network_configuration" {
   description = "The id(s) of the subnet(s) that will be used for the API Management. Required when virtual_network_type is External or Internal"
   default     = []
 }
+
+variable "nsg_name" {
+  type        = string
+  description = "NSG name of the subnet hosting the APIM to add the rule to allow management if the APIM is private"
+  default     = null
+}
+
+variable "nsg_rg_name" {
+  type        = string
+  description = "Name of the RG hosting the NSG if it's different from the one hosting the APIM"
+  default     = null
+}
+
+
+
+### IDENTITY
 
 variable "identity_type" {
   description = "Type of Managed Service Identity that should be configured on this API Management Service"
@@ -177,6 +195,67 @@ variable "products" {
 
 variable "create_product_group_and_relationships" {
   description = "Create local APIM groups with name identical to products and create a relationship between groups and products"
+  type = bool
+  default = false
+}
+
+### LOGGING
+
+variable "enable_logging" {
+  description = "Boolean flag to specify whether logging is enabled"
   type        = bool
-  default     = false
+  default     = true
+}
+
+variable "diag_settings_name" {
+  description = "Custom name for the diagnostic settings of Application Gateway."
+  type        = string
+  default     = ""
+}
+
+variable "logs_storage_retention" {
+  description = "Retention in days for logs on Storage Account"
+  type        = number
+  default     = 30
+}
+
+variable "logs_storage_account_id" {
+  description = "Storage Account id for logs"
+  type        = string
+  default     = null
+}
+
+variable "logs_log_analytics_workspace_id" {
+  description = "Log Analytics Workspace id for logs"
+  type        = string
+  default     = null
+}
+
+variable "eventhub_authorization_rule_id" {
+  description = "Eventhub Authorization rule id for log transmission"
+  type        = string
+  default     = null
+}
+
+variable "log_categories" {
+  type = list(object({
+    category = string
+    enabled  = bool
+    retention_policy = object({
+      enabled = bool
+    })
+  }))
+  default     = null
+  description = "List of log categories to send"
+}
+
+variable "metric_categories" {
+  type = list(object({
+    category = string
+    retention_policy = object({
+      enabled = bool
+    })
+  }))
+  default     = null
+  description = "List of metric categories to send"
 }
