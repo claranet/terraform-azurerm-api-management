@@ -7,6 +7,7 @@ Updated
 
 Added
   * AZ-264: Added new variable to handle identity plus corresponding output
+  * AZ-264: Added output for private IP addresses
   * AZ-272: named values, products, groups and their relationships
   
 Fixed
