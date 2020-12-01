@@ -1,4 +1,4 @@
-# v3.1.0 - Unreleased
+# v3.1.0 - 2020-12-01
 
 Added
   * AZ-264: Added new variable to handle identity plus corresponding output
