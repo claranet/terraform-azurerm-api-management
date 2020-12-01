@@ -1,4 +1,5 @@
 resource "azurerm_network_security_rule" "management_apim" {
+  count                       = var.create_management_rule ? 1 : 0
   access                      = "Allow"
   direction                   = "Inbound"
   name                        = "allow_apim_management"

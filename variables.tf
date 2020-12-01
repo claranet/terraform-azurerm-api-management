@@ -171,7 +171,11 @@ variable "nsg_rg_name" {
   default     = null
 }
 
-
+variable "create_management_rule" {
+  type        = bool
+  description = "Whether to create the NSG rule for the management port of the APIM. If true, nsg_name variable must be set"
+  default     = false
+}
 
 ### IDENTITY
 
@@ -195,8 +199,8 @@ variable "products" {
 
 variable "create_product_group_and_relationships" {
   description = "Create local APIM groups with name identical to products and create a relationship between groups and products"
-  type = bool
-  default = false
+  type        = bool
+  default     = false
 }
 
 ### LOGGING
