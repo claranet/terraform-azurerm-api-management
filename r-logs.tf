@@ -12,5 +12,5 @@ module "logging" {
   eventhub_authorization_rule_id = var.eventhub_authorization_rule_id
 
   log_categories     = var.log_categories
-  metrics_categories = var.metric_categories
+  metric_categories = var.metric_categories
 }
