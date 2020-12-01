@@ -43,7 +43,7 @@ output "api_management_scm_url" {
   value       = azurerm_api_management.apim.scm_url
 }
 
-output "api_management_identity_id" {
-  description = "The ID of the managed identity of the APIM"
-  value       = azurerm_api_management.apim.identity[*].principal_id[0]
+output "api_management_identity" {
+  description = "The identity of the API Management"
+  value       = azurerm_api_management.apim.identity
 }

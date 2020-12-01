@@ -99,7 +99,13 @@ variable "proxy_hostname_configuration" {
 
 variable "portal_hostname_configuration" {
   type        = list(map(string))
-  description = "List of portal hostname configurations"
+  description = "Legacy portal hostname configurations"
+  default     = []
+}
+
+variable "developer_portal_hostname_configuration" {
+  type        = list(map(string))
+  description = "Developer portal hostname configurations"
   default     = []
 }
 
@@ -153,5 +159,24 @@ variable "virtual_network_configuration" {
 
 variable "identity_type" {
   description = "Type of Managed Service Identity that should be configured on this API Management Service"
+  type        = string
   default     = "SystemAssigned"
+}
+
+variable "named_values" {
+  description = "Map containing the name of the named values as key and value as values"
+  type        = list(map(string))
+  default     = []
+}
+
+variable "products" {
+  description = "List of products to create"
+  type        = list(string)
+  default     = []
+}
+
+variable "create_product_group_and_relationships" {
+  description = "Create local APIM groups with name identical to products and create a relationship between groups and products"
+  type        = bool
+  default     = false
 }

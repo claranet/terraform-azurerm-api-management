@@ -54,6 +54,19 @@ module "apim" {
   sku_name        = "Standard_1"
   publisher_name  = "Contoso ApiManager"
   publisher_email = "api_manager@test.com"
+
+  named_values = [
+    {
+      name   = "my_named_value"
+      value  = "my_secret_value"
+      secret = true
+    },
+    {
+      display_name = "My second value explained"
+      name         = "my_second_value"
+      value        = "my_not_secret_value"
+    }
+  ]
 }
 ```
 
@@ -64,7 +77,9 @@ module "apim" {
 | additional\_location | The name of the Azure Region in which the API Management Service should be expanded to. | `list(string)` | `[]` | no |
 | certificate\_configuration | List of certificate configurations | `list(map(string))` | `[]` | no |
 | client\_name | Client name/account used in naming | `string` | n/a | yes |
+| create\_product\_group\_and\_relationships | Create local APIM groups with name identical to products and create a relationship between groups and products | `bool` | `false` | no |
 | custom\_name | Custom API Management name, generated if not set | `string` | `""` | no |
+| developer\_portal\_hostname\_configuration | Developer portal hostname configurations | `list(map(string))` | `[]` | no |
 | enable\_http2 | Should HTTP/2 be supported by the API Management Service? | `bool` | `false` | no |
 | enable\_sign\_in | Should anonymous users be redirected to the sign in page? | `bool` | `false` | no |
 | enable\_sign\_up | Can users sign up on the development portal? | `bool` | `false` | no |
@@ -75,16 +90,19 @@ module "apim" {
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
 | management\_hostname\_configuration | List of management hostname configurations | `list(map(string))` | `[]` | no |
 | name\_prefix | Optional prefix for Network Security Group name | `string` | `""` | no |
+| named\_values | Map containing the name of the named values as key and value as values | `list(map(string))` | `[]` | no |
 | notification\_sender\_email | Email address from which the notification will be sent | `string` | `null` | no |
 | policy\_configuration | Map of policy configuration | `map(string)` | `{}` | no |
-| portal\_hostname\_configuration | List of portal hostname configurations | `list(map(string))` | `[]` | no |
+| portal\_hostname\_configuration | Legacy portal hostname configurations | `list(map(string))` | `[]` | no |
+| products | List of products to create | `list(string)` | `[]` | no |
 | proxy\_hostname\_configuration | List of proxy hostname configurations | `list(map(string))` | `[]` | no |
 | publisher\_email | The email of publisher/company. | `string` | n/a | yes |
 | publisher\_name | The name of publisher/company. | `string` | n/a | yes |
 | resource\_group\_name | Name of the resource group | `string` | n/a | yes |
 | scm\_hostname\_configuration | List of scm hostname configurations | `list(map(string))` | `[]` | no |
 | security\_configuration | Map of security configuration | `map(string)` | `{}` | no |
-| sku\_name | String consisting of two parts separated by an underscore. The fist part is the name, valid values include: Developer, Basic, Standard and Premium. The second part is the capacity | `string` | `"Basic_1"` | no |
+| sku\_name | String consisting of two parts separated by an underscore. The fist part is the name, valid values include: Developer, Basic, Standard and Premium. The second part is the capacity | `string
+` | `"Basic_1"` | no |
 | stack | Project stack name | `string` | n/a | yes |
 | terms\_of\_service\_configuration | Map of terms of service configuration | `list(map(string))` | `[]` | no |
 | virtual\_network\_configuration | The id(s) of the subnet(s) that will be used for the API Management. Required when virtual\_network\_type is External or Internal | `list(string)` | `[]` | no |
