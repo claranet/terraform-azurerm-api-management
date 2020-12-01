@@ -240,7 +240,7 @@ variable "metric_categories" {
   description = "List of metric categories to send"
 }
 
-variable "log_destination_ids" {
+variable "logs_destination_ids" {
   type        = list(string)
   description = "List of destination resources IDs for logs diagnostic destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set."
   default     = []
