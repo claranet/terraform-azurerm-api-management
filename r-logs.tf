@@ -1,5 +1,6 @@
 module "logging" {
-  source = "github.com/claranet/terraform-azurerm-diagnostic-settings.git?ref=multiple-resources"
+  source  = "claranet/diagnostic-settings/azurerm"
+  version = "4.0.0"
 
   name = local.diag_settings_name
 
@@ -11,6 +12,6 @@ module "logging" {
   log_analytics_workspace_id     = var.logs_log_analytics_workspace_id
   eventhub_authorization_rule_id = var.eventhub_authorization_rule_id
 
-  log_categories     = var.log_categories
+  log_categories    = var.log_categories
   metric_categories = var.metric_categories
 }
