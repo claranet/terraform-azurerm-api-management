@@ -2,6 +2,7 @@
 
 Added
   * AZ-264: Added new variable to handle identity plus corresponding output
+  * AZ-272: named values, products, groups and their relationships
 
 # v3.0.0 - 2020-07-09
 

@@ -48,6 +48,16 @@ resource "azurerm_api_management" "apim" {
         negotiate_client_certificate = lookup(portal.value, "negotiate_client_certificate", false)
       }
     }
+    dynamic "developer_portal" {
+      for_each = var.developer_portal_hostname_configuration
+      content {
+        host_name                    = lookup(developer_portal.value, "host_name")
+        key_vault_id                 = lookup(developer_portal.value, "key_vault_id", null)
+        certificate                  = lookup(developer_portal.value, "certificate", null)
+        certificate_password         = lookup(developer_portal.value, "certificate_password", null)
+        negotiate_client_certificate = lookup(developer_portal.value, "negotiate_client_certificate", false)
+      }
+    }
     dynamic "proxy" {
       for_each = var.proxy_hostname_configuration
       content {
