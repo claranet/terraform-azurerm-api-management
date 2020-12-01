@@ -218,24 +218,13 @@ variable "logs_storage_retention" {
 }
 
 variable "log_categories" {
-  type = list(object({
-    category = string
-    enabled  = bool
-    retention_policy = object({
-      enabled = bool
-    })
-  }))
+  type        = list(string)
   default     = null
   description = "List of log categories to send"
 }
 
 variable "metric_categories" {
-  type = list(object({
-    category = string
-    retention_policy = object({
-      enabled = bool
-    })
-  }))
+  type        = list(string)
   default     = null
   description = "List of metric categories to send"
 }
