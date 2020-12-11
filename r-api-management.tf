@@ -28,13 +28,12 @@ resource "azurerm_api_management" "apim" {
   }
 
   dynamic "hostname_configuration" {
-    for_each = coalescelist(
+    for_each = length(concat(
       var.management_hostname_configuration,
       var.portal_hostname_configuration,
       var.developer_portal_hostname_configuration,
       var.proxy_hostname_configuration,
-      ["empty"]
-    )[0] == "empty" ? [] : ["fake"]
+    )) == 0 ? [] : ["fake"]
     content {
       dynamic "management" {
         for_each = var.management_hostname_configuration
