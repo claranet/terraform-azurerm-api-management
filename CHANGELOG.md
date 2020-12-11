@@ -1,7 +1,12 @@
-# v3.1.1/v4.0.0 - Unreleased
+# v3.2.0/v4.0.0 - Unreleased
 
 Updated
   * AZ-273: Module now compatible terraform `v0.13+`
+
+Added
+  * AZ-264: Added output for private IP addresses
+Fixed
+  * AZ-358: Fix RPC Error when using empty hostname_configurations
 
 # v3.1.0 - 2020-12-01
 

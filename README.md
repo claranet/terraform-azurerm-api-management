@@ -102,8 +102,7 @@ module "apim" {
 | resource\_group\_name | Name of the resource group | `string` | n/a | yes |
 | scm\_hostname\_configuration | List of scm hostname configurations | `list(map(string))` | `[]` | no |
 | security\_configuration | Map of security configuration | `map(string)` | `{}` | no |
-| sku\_name | String consisting of two parts separated by an underscore. The fist part is the name, valid values include: Developer, Basic, Standard and Premium. The second part is the capacity | `string
-` | `"Basic_1"` | no |
+| sku\_name | String consisting of two parts separated by an underscore. The fist part is the name, valid values include: Developer, Basic, Standard and Premium. The second part is the capacity | `string` | `"Basic_1"` | no |
 | stack | Project stack name | `string` | n/a | yes |
 | terms\_of\_service\_configuration | Map of terms of service configuration | `list(map(string))` | `[]` | no |
 | virtual\_network\_configuration | The id(s) of the subnet(s) that will be used for the API Management. Required when virtual\_network\_type is External or Internal | `list(string)` | `[]` | no |
@@ -117,10 +116,11 @@ module "apim" {
 | api\_management\_gateway\_regional\_url | The Region URL for the Gateway of the API Management Service |
 | api\_management\_gateway\_url | The URL of the Gateway for the API Management Service |
 | api\_management\_id | The ID of the API Management Service |
-| api\_management\_identity\_id | The ID of the managed identity of the APIM |
+| api\_management\_identity | The identity of the API Management |
 | api\_management\_management\_api\_url | The URL for the Management API associated with this API Management service |
 | api\_management\_name | The name of the API Management Service |
 | api\_management\_portal\_url | The URL for the Publisher Portal associated with this API Management service |
+| api\_management\_private\_ip\_addresses | The Private IP addresses of the API Management Service |
 | api\_management\_public\_ip\_addresses | The Public IP addresses of the API Management Service |
 | api\_management\_scm\_url | The URL for the SCM Endpoint associated with this API Management service |
 

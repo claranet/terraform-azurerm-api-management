@@ -38,6 +38,11 @@ output "api_management_public_ip_addresses" {
   value       = azurerm_api_management.apim.public_ip_addresses
 }
 
+output "api_management_private_ip_addresses" {
+  description = "The Private IP addresses of the API Management Service"
+  value       = azurerm_api_management.apim.private_ip_addresses
+}
+
 output "api_management_scm_url" {
   description = "The URL for the SCM Endpoint associated with this API Management service"
   value       = azurerm_api_management.apim.scm_url
