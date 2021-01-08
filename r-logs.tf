@@ -1,6 +1,6 @@
 module "logging" {
   source  = "claranet/diagnostic-settings/azurerm"
-  version = "4.0.0"
+  version = "4.0.1"
 
   name = local.diag_settings_name
 
