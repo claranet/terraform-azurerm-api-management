@@ -8,9 +8,12 @@ resource "azurerm_api_management" "apim" {
   sku_name        = var.sku_name
 
   dynamic "additional_location" {
-    for_each = toset(var.additional_location)
+    for_each = var.additional_location
     content {
-      location = additional_location.value
+      location = lookup(additional_location.value, "location")
+      virtual_network_configuration {
+        subnet_id = additional_location.value.subnet_id
+      }
     }
   }
 
