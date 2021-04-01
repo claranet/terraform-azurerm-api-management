@@ -92,6 +92,7 @@ module "apim" {
 | location | Azure location for Eventhub. | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
 | log\_categories | List of log categories to send | `list(string)` | `null` | no |
+| log\_destination\_type | Log sent to Log Analytics can be sent to 'Dedicated' log tables or the legacy 'AzureDiagnostics' | `string` | `"Dedicated"` | no |
 | logs\_destinations\_ids | List of destination resources IDs for logs diagnostic destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set. | `list(string)` | `[]` | no |
 | logs\_storage\_retention | Retention in days for logs on Storage Account | `number` | `30` | no |
 | management\_hostname\_configuration | List of management hostname configurations | `list(map(string))` | `[]` | no |
