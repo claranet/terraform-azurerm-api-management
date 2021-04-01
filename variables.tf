@@ -145,6 +145,8 @@ variable "security_configuration" {
   default     = {}
 }
 
+### NETWORKING
+
 variable "virtual_network_type" {
   type        = string
   description = "The type of virtual network you want to use, valid values include: None, External, Internal."
@@ -156,6 +158,32 @@ variable "virtual_network_configuration" {
   description = "The id(s) of the subnet(s) that will be used for the API Management. Required when virtual_network_type is External or Internal"
   default     = []
 }
+
+variable "nsg_name" {
+  type        = string
+  description = "NSG name of the subnet hosting the APIM to add the rule to allow management if the APIM is private"
+  default     = null
+}
+
+variable "nsg_rg_name" {
+  type        = string
+  description = "Name of the RG hosting the NSG if it's different from the one hosting the APIM"
+  default     = null
+}
+
+variable "create_management_rule" {
+  type        = bool
+  description = "Whether to create the NSG rule for the management port of the APIM. If true, nsg_name variable must be set"
+  default     = false
+}
+
+variable "management_nsg_rule_priority" {
+  type        = number
+  description = "Priority of the NSG rule created for the management port of the APIM"
+  default     = 101
+}
+
+### IDENTITY
 
 variable "identity_type" {
   description = "Type of Managed Service Identity that should be configured on this API Management Service"
@@ -179,4 +207,36 @@ variable "create_product_group_and_relationships" {
   description = "Create local APIM groups with name identical to products and create a relationship between groups and products"
   type        = bool
   default     = false
+}
+
+### LOGGING
+
+variable "diag_settings_name" {
+  description = "Custom name for the diagnostic settings of Application Gateway."
+  type        = string
+  default     = ""
+}
+
+variable "logs_storage_retention" {
+  description = "Retention in days for logs on Storage Account"
+  type        = number
+  default     = 30
+}
+
+variable "log_categories" {
+  type        = list(string)
+  default     = null
+  description = "List of log categories to send"
+}
+
+variable "metric_categories" {
+  type        = list(string)
+  default     = null
+  description = "List of metric categories to send"
+}
+
+variable "logs_destinations_ids" {
+  type        = list(string)
+  description = "List of destination resources IDs for logs diagnostic destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set."
+  default     = []
 }

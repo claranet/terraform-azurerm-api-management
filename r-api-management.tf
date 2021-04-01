@@ -143,4 +143,6 @@ resource "azurerm_api_management" "apim" {
   }
 
   tags = merge(local.default_tags, var.extra_tags)
+
+  depends_on = [azurerm_network_security_rule.management_apim]
 }
