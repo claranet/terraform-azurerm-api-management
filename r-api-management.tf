@@ -10,9 +10,12 @@ resource "azurerm_api_management" "apim" {
   dynamic "additional_location" {
     for_each = var.additional_location
     content {
-      location = lookup(additional_location.value, "location")
-      virtual_network_configuration {
-        subnet_id = additional_location.value.subnet_id
+      location = lookup(additional_location.value, "location", null)
+      dynamic "virtual_network_configuration" {
+        for_each = lookup(additional_location.value, "subnet_id", null) == null ? [] : [1]
+        content {
+          subnet_id = additional_location.value.subnet_id
+        }
       }
     }
   }
