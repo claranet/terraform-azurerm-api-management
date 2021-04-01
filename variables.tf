@@ -177,6 +177,12 @@ variable "create_management_rule" {
   default     = false
 }
 
+variable "management_nsg_rule_priority" {
+  type        = number
+  description = "Priority of the NSG rule created for the management port of the APIM"
+  default     = 101
+}
+
 ### IDENTITY
 
 variable "identity_type" {

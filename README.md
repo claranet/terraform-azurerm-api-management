@@ -95,6 +95,7 @@ module "apim" {
 | logs\_destinations\_ids | List of destination resources IDs for logs diagnostic destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set. | `list(string)` | `[]` | no |
 | logs\_storage\_retention | Retention in days for logs on Storage Account | `number` | `30` | no |
 | management\_hostname\_configuration | List of management hostname configurations | `list(map(string))` | `[]` | no |
+| management\_nsg\_rule\_priority | Priority of the NSG rule created for the management port of the APIM | `number` | `101` | no |
 | metric\_categories | List of metric categories to send | `list(string)` | `null` | no |
 | name\_prefix | Optional prefix for Network Security Group name | `string` | `""` | no |
 | named\_values | Map containing the name of the named values as key and value as values | `list(map(string))` | `[]` | no |

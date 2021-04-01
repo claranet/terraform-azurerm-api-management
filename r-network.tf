@@ -4,7 +4,7 @@ resource "azurerm_network_security_rule" "management_apim" {
   direction                   = "Inbound"
   name                        = "allow_apim_management"
   network_security_group_name = var.nsg_name
-  priority                    = 101
+  priority                    = var.management_nsg_rule_priority
   protocol                    = "Tcp"
   resource_group_name         = var.nsg_rg_name == null ? var.resource_group_name : var.nsg_rg_name
 
