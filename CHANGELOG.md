@@ -1,8 +1,8 @@
-# Unreleased
+# v4.1.0 - 2021-04-01
 
 Added
   * AZ-373: Add diagnostic settings, add NSG rule for APIM Management interface
-  * AZ-475: Add log_destination_type variable
+  * AZ-475: Add `log_destination_type` variable
 
 Changed
   * AZ-409: Finalizing the Additional location feature (Added vNET configuration)
@@ -16,7 +16,7 @@ Added
   * AZ-264: Added output for private IP addresses
 
 Fixed
-  * AZ-358: Fix RPC Error when using empty hostname_configurations
+  * AZ-358: Fix RPC Error when using empty `hostname_configurations`
 
 # v3.1.0 - 2020-12-01
 
