@@ -1,3 +1,8 @@
+# Unreleased
+
+Added
+  * AZ-373 Add diagnostic settings, add NSG rule for APIM Management interface
+
 # v3.2.0/v4.0.0 - 2020-12-11
 
 Updated

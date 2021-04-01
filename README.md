@@ -78,9 +78,11 @@ module "apim" {
 | additional\_location | The name of the Azure Region in which the API Management Service should be expanded to. | `list(string)` | `[]` | no |
 | certificate\_configuration | List of certificate configurations | `list(map(string))` | `[]` | no |
 | client\_name | Client name/account used in naming | `string` | n/a | yes |
+| create\_management\_rule | Whether to create the NSG rule for the management port of the APIM. If true, nsg\_name variable must be set | `bool` | `false` | no |
 | create\_product\_group\_and\_relationships | Create local APIM groups with name identical to products and create a relationship between groups and products | `bool` | `false` | no |
 | custom\_name | Custom API Management name, generated if not set | `string` | `""` | no |
 | developer\_portal\_hostname\_configuration | Developer portal hostname configurations | `list(map(string))` | `[]` | no |
+| diag\_settings\_name | Custom name for the diagnostic settings of Application Gateway. | `string` | `""` | no |
 | enable\_http2 | Should HTTP/2 be supported by the API Management Service? | `bool` | `false` | no |
 | enable\_sign\_in | Should anonymous users be redirected to the sign in page? | `bool` | `false` | no |
 | enable\_sign\_up | Can users sign up on the development portal? | `bool` | `false` | no |
@@ -89,10 +91,16 @@ module "apim" {
 | identity\_type | Type of Managed Service Identity that should be configured on this API Management Service | `string` | `"SystemAssigned"` | no |
 | location | Azure location for Eventhub. | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
+| log\_categories | List of log categories to send | `list(string)` | `null` | no |
+| logs\_destinations\_ids | List of destination resources IDs for logs diagnostic destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set. | `list(string)` | `[]` | no |
+| logs\_storage\_retention | Retention in days for logs on Storage Account | `number` | `30` | no |
 | management\_hostname\_configuration | List of management hostname configurations | `list(map(string))` | `[]` | no |
+| metric\_categories | List of metric categories to send | `list(string)` | `null` | no |
 | name\_prefix | Optional prefix for Network Security Group name | `string` | `""` | no |
 | named\_values | Map containing the name of the named values as key and value as values | `list(map(string))` | `[]` | no |
 | notification\_sender\_email | Email address from which the notification will be sent | `string` | `null` | no |
+| nsg\_name | NSG name of the subnet hosting the APIM to add the rule to allow management if the APIM is private | `string` | `null` | no |
+| nsg\_rg\_name | Name of the RG hosting the NSG if it's different from the one hosting the APIM | `string` | `null` | no |
 | policy\_configuration | Map of policy configuration | `map(string)` | `{}` | no |
 | portal\_hostname\_configuration | Legacy portal hostname configurations | `list(map(string))` | `[]` | no |
 | products | List of products to create | `list(string)` | `[]` | no |
