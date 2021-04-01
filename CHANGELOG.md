@@ -1,7 +1,8 @@
 # Unreleased
 
 Added
-  * AZ-373 Add diagnostic settings, add NSG rule for APIM Management interface
+  * AZ-373: Add diagnostic settings, add NSG rule for APIM Management interface
+  * AZ-475: Add log_destination_type variable
 
 # v3.2.0/v4.0.0 - 2020-12-11
 
