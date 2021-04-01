@@ -62,8 +62,8 @@ variable "publisher_email" {
 }
 
 variable "additional_location" {
-  type        = list(string)
-  description = "The name of the Azure Region in which the API Management Service should be expanded to."
+  type        = list(map(string))
+  description = "List of the name of the Azure Region in which the API Management Service should be expanded to."
   default     = []
 }
 

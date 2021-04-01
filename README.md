@@ -68,6 +68,13 @@ module "apim" {
       value        = "my_not_secret_value"
     }
   ]
+
+  additional_location = [
+    {
+      location  = "eastus2"
+      subnet_id = data.terraform_remote_state.global-infra.outputs.subnet_api_management_east_us_prd_id
+    },
+  ]
 }
 ```
 
@@ -75,7 +82,7 @@ module "apim" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| additional\_location | The name of the Azure Region in which the API Management Service should be expanded to. | `list(string)` | `[]` | no |
+| additional\_location | List of the name of the Azure Region in which the API Management Service should be expanded to. | `list(map(string))` | `[]` | no |
 | certificate\_configuration | List of certificate configurations | `list(map(string))` | `[]` | no |
 | client\_name | Client name/account used in naming | `string` | n/a | yes |
 | create\_management\_rule | Whether to create the NSG rule for the management port of the APIM. If true, nsg\_name variable must be set | `bool` | `false` | no |
