@@ -30,7 +30,8 @@ resource "azurerm_api_management" "apim" {
   }
 
   identity {
-    type = var.identity_type
+    type         = var.identity_type
+    identity_ids = var.identity_ids
   }
 
   dynamic "hostname_configuration" {
