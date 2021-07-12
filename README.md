@@ -80,9 +80,9 @@ module "apim" {
 
 ## Providers
 
-| Name    | Version |
-| ------- | ------- |
-| azurerm | ~> 2.0  |
+| Name | Version |
+|------|---------|
+| azurerm | ~> 2.29 |
 
 ## Inputs
 
