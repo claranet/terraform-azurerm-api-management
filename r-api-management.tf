@@ -31,7 +31,7 @@ resource "azurerm_api_management" "apim" {
 
   identity {
     type         = var.identity_type
-    identity_ids = var.identity_ids
+    identity_ids = replace(var.identity_type, "UserAssigned", "") == var.identity_type ? null : var.identity_ids
   }
 
   dynamic "hostname_configuration" {
@@ -41,6 +41,7 @@ resource "azurerm_api_management" "apim" {
       var.developer_portal_hostname_configuration,
       var.proxy_hostname_configuration,
     )) == 0 ? [] : ["fake"]
+
     content {
       dynamic "management" {
         for_each = var.management_hostname_configuration
@@ -52,6 +53,7 @@ resource "azurerm_api_management" "apim" {
           negotiate_client_certificate = lookup(management.value, "negotiate_client_certificate", false)
         }
       }
+
       dynamic "portal" {
         for_each = var.portal_hostname_configuration
         content {
@@ -62,6 +64,7 @@ resource "azurerm_api_management" "apim" {
           negotiate_client_certificate = lookup(portal.value, "negotiate_client_certificate", false)
         }
       }
+
       dynamic "developer_portal" {
         for_each = var.developer_portal_hostname_configuration
         content {
@@ -72,6 +75,7 @@ resource "azurerm_api_management" "apim" {
           negotiate_client_certificate = lookup(developer_portal.value, "negotiate_client_certificate", false)
         }
       }
+
       dynamic "proxy" {
         for_each = var.proxy_hostname_configuration
         content {
@@ -83,6 +87,7 @@ resource "azurerm_api_management" "apim" {
           negotiate_client_certificate = lookup(proxy.value, "negotiate_client_certificate", false)
         }
       }
+
       dynamic "scm" {
         for_each = var.scm_hostname_configuration
         content {
