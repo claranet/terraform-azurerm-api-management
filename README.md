@@ -84,6 +84,23 @@ module "apim" {
 |------|---------|
 | azurerm | ~> 2.29 |
 
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| logging | claranet/diagnostic-settings/azurerm | 4.0.1 |
+
+## Resources
+
+| Name |
+|------|
+| [azurerm_api_management](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management) |
+| [azurerm_api_management_group](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_group) |
+| [azurerm_api_management_named_value](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_named_value) |
+| [azurerm_api_management_product](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_product) |
+| [azurerm_api_management_product_group](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_product_group) |
+| [azurerm_network_security_rule](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_rule) |
+
 ## Inputs
 
 | Name                                       | Description                                                                                                                                                                         | Type                | Default            | Required |
