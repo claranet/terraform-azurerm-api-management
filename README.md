@@ -11,6 +11,7 @@ This Terraform module creates an [Azure API Management](https://docs.microsoft.c
 
 | Module version | Terraform version | AzureRM version |
 | -------------- | ----------------- | --------------- |
+| >= 5.x.x       | 0.15.x & 1.0.x    | >= 2.0          |
 | >= 4.x.x       | 0.13.x            | >= 2.0          |
 | >= 3.x.x       | 0.12.x            | >= 2.0          |
 | >= 2.x.x       | 0.12.x            | < 2.0           |
@@ -78,6 +79,7 @@ module "apim" {
 }
 ```
 
+<!-- BEGIN_TF_DOCS -->
 ## Providers
 
 | Name | Version |
@@ -88,85 +90,83 @@ module "apim" {
 
 | Name | Source | Version |
 |------|--------|---------|
-| logging | claranet/diagnostic-settings/azurerm | 4.0.1 |
+| logging | claranet/diagnostic-settings/azurerm | 4.0.2 |
 
 ## Resources
 
-| Name |
-|------|
-| [azurerm_api_management](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management) |
-| [azurerm_api_management_group](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_group) |
-| [azurerm_api_management_named_value](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_named_value) |
-| [azurerm_api_management_product](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_product) |
-| [azurerm_api_management_product_group](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_product_group) |
-| [azurerm_network_security_rule](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_rule) |
+| Name | Type |
+|------|------|
+| [azurerm_api_management.apim](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management) | resource |
+| [azurerm_api_management_group.group](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_group) | resource |
+| [azurerm_api_management_named_value.named_values](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_named_value) | resource |
+| [azurerm_api_management_product.product](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_product) | resource |
+| [azurerm_api_management_product_group.product_group](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_product_group) | resource |
+| [azurerm_network_security_rule.management_apim](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_rule) | resource |
 
 ## Inputs
 
-| Name                                       | Description                                                                                                                                                                         | Type                | Default            | Required |
-| ------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- | ------------------ | :------: |
-| additional\_location                       | List of the name of the Azure Region in which the API Management Service should be expanded to.                                                                                     | `list(map(string))` | `[]`               |    no    |
-| certificate\_configuration                 | List of certificate configurations                                                                                                                                                  | `list(map(string))` | `[]`               |    no    |
-| client\_name                               | Client name/account used in naming                                                                                                                                                  | `string`            | n/a                |   yes    |
-| create\_management\_rule                   | Whether to create the NSG rule for the management port of the APIM. If true, nsg\_name variable must be set                                                                         | `bool`              | `false`            |    no    |
-| create\_product\_group\_and\_relationships | Create local APIM groups with name identical to products and create a relationship between groups and products                                                                      | `bool`              | `false`            |    no    |
-| custom\_name                               | Custom API Management name, generated if not set                                                                                                                                    | `string`            | `""`               |    no    |
-| developer\_portal\_hostname\_configuration | Developer portal hostname configurations                                                                                                                                            | `list(map(string))` | `[]`               |    no    |
-| diag\_settings\_name                       | Custom name for the diagnostic settings of Application Gateway.                                                                                                                     | `string`            | `""`               |    no    |
-| enable\_http2                              | Should HTTP/2 be supported by the API Management Service?                                                                                                                           | `bool`              | `false`            |    no    |
-| enable\_sign\_in                           | Should anonymous users be redirected to the sign in page?                                                                                                                           | `bool`              | `false`            |    no    |
-| enable\_sign\_up                           | Can users sign up on the development portal?                                                                                                                                        | `bool`              | `false`            |    no    |
-| environment                                | Project environment                                                                                                                                                                 | `string`            | n/a                |   yes    |
-| extra\_tags                                | Extra tags to add                                                                                                                                                                   | `map(string)`       | `{}`               |    no    |
-| identity\_ids                              | A list of IDs for User Assigned Managed Identity resources to be assigned. This is required when type is set to UserAssigned or SystemAssigned, UserAssigned.                       | `list(string)`      | `[]`               |    no    |
-| identity\_type                             | Type of Managed Service Identity that should be configured on this API Management Service                                                                                           | `string`            | `"SystemAssigned"` |    no    |
-| location                                   | Azure location for Eventhub.                                                                                                                                                        | `string`            | n/a                |   yes    |
-| location\_short                            | Short string for Azure location.                                                                                                                                                    | `string`            | n/a                |   yes    |
-| log\_categories                            | List of log categories to send                                                                                                                                                      | `list(string)`      | `null`             |    no    |
-| log\_destination\_type                     | Log sent to Log Analytics can be sent to 'Dedicated' log tables or the legacy 'AzureDiagnostics'                                                                                    | `string`            | `"Dedicated"`      |    no    |
-| logs\_destinations\_ids                    | List of destination resources IDs for logs diagnostic destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set.              | `list(string)`      | `[]`               |    no    |
-| logs\_storage\_retention                   | Retention in days for logs on Storage Account                                                                                                                                       | `number`            | `30`               |    no    |
-| management\_hostname\_configuration        | List of management hostname configurations                                                                                                                                          | `list(map(string))` | `[]`               |    no    |
-| management\_nsg\_rule\_priority            | Priority of the NSG rule created for the management port of the APIM                                                                                                                | `number`            | `101`              |    no    |
-| metric\_categories                         | List of metric categories to send                                                                                                                                                   | `list(string)`      | `null`             |    no    |
-| name\_prefix                               | Optional prefix for Network Security Group name                                                                                                                                     | `string`            | `""`               |    no    |
-| named\_values                              | Map containing the name of the named values as key and value as values                                                                                                              | `list(map(string))` | `[]`               |    no    |
-| notification\_sender\_email                | Email address from which the notification will be sent                                                                                                                              | `string`            | `null`             |    no    |
-| nsg\_name                                  | NSG name of the subnet hosting the APIM to add the rule to allow management if the APIM is private                                                                                  | `string`            | `null`             |    no    |
-| nsg\_rg\_name                              | Name of the RG hosting the NSG if it's different from the one hosting the APIM                                                                                                      | `string`            | `null`             |    no    |
-| policy\_configuration                      | Map of policy configuration                                                                                                                                                         | `map(string)`       | `{}`               |    no    |
-| portal\_hostname\_configuration            | Legacy portal hostname configurations                                                                                                                                               | `list(map(string))` | `[]`               |    no    |
-| products                                   | List of products to create                                                                                                                                                          | `list(string)`      | `[]`               |    no    |
-| proxy\_hostname\_configuration             | List of proxy hostname configurations                                                                                                                                               | `list(map(string))` | `[]`               |    no    |
-| publisher\_email                           | The email of publisher/company.                                                                                                                                                     | `string`            | n/a                |   yes    |
-| publisher\_name                            | The name of publisher/company.                                                                                                                                                      | `string`            | n/a                |   yes    |
-| resource\_group\_name                      | Name of the resource group                                                                                                                                                          | `string`            | n/a                |   yes    |
-| scm\_hostname\_configuration               | List of scm hostname configurations                                                                                                                                                 | `list(map(string))` | `[]`               |    no    |
-| security\_configuration                    | Map of security configuration                                                                                                                                                       | `map(string)`       | `{}`               |    no    |
-| sku\_name                                  | String consisting of two parts separated by an underscore. The fist part is the name, valid values include: Developer, Basic, Standard and Premium. The second part is the capacity | `string`            | `"Basic_1"`        |    no    |
-| stack                                      | Project stack name                                                                                                                                                                  | `string`            | n/a                |   yes    |
-| terms\_of\_service\_configuration          | Map of terms of service configuration                                                                                                                                               | `list(map(string))` | `[]`               |    no    |
-| virtual\_network\_configuration            | The id(s) of the subnet(s) that will be used for the API Management. Required when virtual\_network\_type is External or Internal                                                   | `list(string)`      | `[]`               |    no    |
-| virtual\_network\_type                     | The type of virtual network you want to use, valid values include: None, External, Internal.                                                                                        | `string`            | `null`             |    no    |
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| additional\_location | List of the name of the Azure Region in which the API Management Service should be expanded to. | `list(map(string))` | `[]` | no |
+| certificate\_configuration | List of certificate configurations | `list(map(string))` | `[]` | no |
+| client\_name | Client name/account used in naming | `string` | n/a | yes |
+| create\_management\_rule | Whether to create the NSG rule for the management port of the APIM. If true, nsg\_name variable must be set | `bool` | `false` | no |
+| create\_product\_group\_and\_relationships | Create local APIM groups with name identical to products and create a relationship between groups and products | `bool` | `false` | no |
+| custom\_name | Custom API Management name, generated if not set | `string` | `""` | no |
+| developer\_portal\_hostname\_configuration | Developer portal hostname configurations | `list(map(string))` | `[]` | no |
+| diag\_settings\_name | Custom name for the diagnostic settings of Application Gateway. | `string` | `""` | no |
+| enable\_http2 | Should HTTP/2 be supported by the API Management Service? | `bool` | `false` | no |
+| enable\_sign\_in | Should anonymous users be redirected to the sign in page? | `bool` | `false` | no |
+| enable\_sign\_up | Can users sign up on the development portal? | `bool` | `false` | no |
+| environment | Project environment | `string` | n/a | yes |
+| extra\_tags | Extra tags to add | `map(string)` | `{}` | no |
+| identity\_ids | A list of IDs for User Assigned Managed Identity resources to be assigned. This is required when type is set to UserAssigned or SystemAssigned, UserAssigned. | `list(string)` | `[]` | no |
+| identity\_type | Type of Managed Service Identity that should be configured on this API Management Service | `string` | `"SystemAssigned"` | no |
+| location | Azure location for Eventhub. | `string` | n/a | yes |
+| location\_short | Short string for Azure location. | `string` | n/a | yes |
+| log\_categories | List of log categories to send | `list(string)` | `null` | no |
+| log\_destination\_type | Log sent to Log Analytics can be sent to 'Dedicated' log tables or the legacy 'AzureDiagnostics' | `string` | `"Dedicated"` | no |
+| logs\_destinations\_ids | List of destination resources IDs for logs diagnostic destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set. | `list(string)` | `[]` | no |
+| logs\_storage\_retention | Retention in days for logs on Storage Account | `number` | `30` | no |
+| management\_hostname\_configuration | List of management hostname configurations | `list(map(string))` | `[]` | no |
+| management\_nsg\_rule\_priority | Priority of the NSG rule created for the management port of the APIM | `number` | `101` | no |
+| metric\_categories | List of metric categories to send | `list(string)` | `null` | no |
+| name\_prefix | Optional prefix for Network Security Group name | `string` | `""` | no |
+| named\_values | Map containing the name of the named values as key and value as values | `list(map(string))` | `[]` | no |
+| notification\_sender\_email | Email address from which the notification will be sent | `string` | `null` | no |
+| nsg\_name | NSG name of the subnet hosting the APIM to add the rule to allow management if the APIM is private | `string` | `null` | no |
+| nsg\_rg\_name | Name of the RG hosting the NSG if it's different from the one hosting the APIM | `string` | `null` | no |
+| policy\_configuration | Map of policy configuration | `map(string)` | `{}` | no |
+| portal\_hostname\_configuration | Legacy portal hostname configurations | `list(map(string))` | `[]` | no |
+| products | List of products to create | `list(string)` | `[]` | no |
+| proxy\_hostname\_configuration | List of proxy hostname configurations | `list(map(string))` | `[]` | no |
+| publisher\_email | The email of publisher/company. | `string` | n/a | yes |
+| publisher\_name | The name of publisher/company. | `string` | n/a | yes |
+| resource\_group\_name | Name of the resource group | `string` | n/a | yes |
+| scm\_hostname\_configuration | List of scm hostname configurations | `list(map(string))` | `[]` | no |
+| security\_configuration | Map of security configuration | `map(string)` | `{}` | no |
+| sku\_name | String consisting of two parts separated by an underscore. The fist part is the name, valid values include: Developer, Basic, Standard and Premium. The second part is the capacity | `string` | `"Basic_1"` | no |
+| stack | Project stack name | `string` | n/a | yes |
+| terms\_of\_service\_configuration | Map of terms of service configuration | `list(map(string))` | `[]` | no |
+| virtual\_network\_configuration | The id(s) of the subnet(s) that will be used for the API Management. Required when virtual\_network\_type is External or Internal | `list(string)` | `[]` | no |
+| virtual\_network\_type | The type of virtual network you want to use, valid values include: None, External, Internal. | `string` | `null` | no |
 
 ## Outputs
 
-| Name                                    | Description                                                                  |
-| --------------------------------------- | ---------------------------------------------------------------------------- |
-| api\_management\_additional\_location   | Map listing gateway\_regional\_url and public\_ip\_addresses associated      |
-| api\_management\_gateway\_regional\_url | The Region URL for the Gateway of the API Management Service                 |
-| api\_management\_gateway\_url           | The URL of the Gateway for the API Management Service                        |
-| api\_management\_id                     | The ID of the API Management Service                                         |
-| api\_management\_identity               | The identity of the API Management                                           |
-| api\_management\_management\_api\_url   | The URL for the Management API associated with this API Management service   |
-| api\_management\_name                   | The name of the API Management Service                                       |
-| api\_management\_portal\_url            | The URL for the Publisher Portal associated with this API Management service |
-| api\_management\_private\_ip\_addresses | The Private IP addresses of the API Management Service                       |
-| api\_management\_public\_ip\_addresses  | The Public IP addresses of the API Management Service                        |
-| api\_management\_scm\_url               | The URL for the SCM Endpoint associated with this API Management service     |
-
+| Name | Description |
+|------|-------------|
+| api\_management\_additional\_location | Map listing gateway\_regional\_url and public\_ip\_addresses associated |
+| api\_management\_gateway\_regional\_url | The Region URL for the Gateway of the API Management Service |
+| api\_management\_gateway\_url | The URL of the Gateway for the API Management Service |
+| api\_management\_id | The ID of the API Management Service |
+| api\_management\_identity | The identity of the API Management |
+| api\_management\_management\_api\_url | The URL for the Management API associated with this API Management service |
+| api\_management\_name | The name of the API Management Service |
+| api\_management\_portal\_url | The URL for the Publisher Portal associated with this API Management service |
+| api\_management\_private\_ip\_addresses | The Private IP addresses of the API Management Service |
+| api\_management\_public\_ip\_addresses | The Public IP addresses of the API Management Service |
+| api\_management\_scm\_url | The URL for the SCM Endpoint associated with this API Management service |
+<!-- END_TF_DOCS -->
 ## Related documentation
-
-Terraform resource documentation on API Management: [https://www.terraform.io/docs/providers/azurerm/r/api_management.html](https://www.terraform.io/docs/providers/azurerm/r/api_management.html)
 
 Microsoft Azure documentation: [https://docs.microsoft.com/en-us/azure/api-management/](https://docs.microsoft.com/en-us/azure/api-management/)
