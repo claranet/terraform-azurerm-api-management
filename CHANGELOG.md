@@ -1,4 +1,4 @@
-# v4.2.0 - unreleased
+# v4.2.0 - 2021-08-27
 
 Fixed
   * AZ-530: Fix provider required version
