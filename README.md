@@ -8,7 +8,7 @@ This Terraform module creates an [Azure API Management](https://docs.microsoft.c
 * [AzureRM Terraform provider](https://www.terraform.io/docs/providers/azurerm/) >= 1.32
 
 <!-- BEGIN_TF_DOCS -->
-## Global versionning rule for Claranet Azure modules
+## Global versioning rule for Claranet Azure modules
 
 | Module version | Terraform version | AzureRM version |
 | -------------- | ----------------- | --------------- |
