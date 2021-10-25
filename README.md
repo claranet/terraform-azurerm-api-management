@@ -91,7 +91,7 @@ module "apim" {
 
 | Name | Source | Version |
 |------|--------|---------|
-| logging | claranet/diagnostic-settings/azurerm | 4.0.2 |
+| logging | claranet/diagnostic-settings/azurerm | 4.0.3 |
 
 ## Resources
 

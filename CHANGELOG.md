@@ -1,5 +1,8 @@
 # Unreleased
 
+Fixed
+  * AZ-589: Avoid plan drift when specifying Diagnostic Settings categories
+
 Changed
   * AZ-572: Revamp examples and improve CI
 
