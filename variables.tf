@@ -131,7 +131,8 @@ variable "enable_sign_up" {
 variable "terms_of_service_configuration" {
   type        = list(map(string))
   description = "Map of terms of service configuration"
-  default     = [{
+
+  default = [{
     consent_required = false
     enabled          = false
     text             = ""
