@@ -1,5 +1,9 @@
 # Unreleased
 
+Added
+  * AZ-615: Add an option to enable or disable default tags
+  * AZ-615: Add a default value to `terms_of_service_configuration` variable (required since AzureRM v2.26)
+
 Fixed
   * AZ-589: Avoid plan drift when specifying Diagnostic Settings categories
 
