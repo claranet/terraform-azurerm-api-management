@@ -40,12 +40,6 @@ variable "location_short" {
   type        = string
 }
 
-variable "extra_tags" {
-  description = "Extra tags to add"
-  type        = map(string)
-  default     = {}
-}
-
 variable "sku_name" {
   type        = string
   description = "String consisting of two parts separated by an underscore. The fist part is the name, valid values include: Developer, Basic, Standard and Premium. The second part is the capacity"
@@ -137,7 +131,12 @@ variable "enable_sign_up" {
 variable "terms_of_service_configuration" {
   type        = list(map(string))
   description = "Map of terms of service configuration"
-  default     = []
+
+  default = [{
+    consent_required = false
+    enabled          = false
+    text             = ""
+  }]
 }
 
 variable "security_configuration" {
@@ -214,42 +213,4 @@ variable "create_product_group_and_relationships" {
   description = "Create local APIM groups with name identical to products and create a relationship between groups and products"
   type        = bool
   default     = false
-}
-
-### LOGGING
-
-variable "diag_settings_name" {
-  description = "Custom name for the diagnostic settings of Application Gateway."
-  type        = string
-  default     = ""
-}
-
-variable "logs_storage_retention" {
-  description = "Retention in days for logs on Storage Account"
-  type        = number
-  default     = 30
-}
-
-variable "log_categories" {
-  type        = list(string)
-  default     = null
-  description = "List of log categories to send"
-}
-
-variable "metric_categories" {
-  type        = list(string)
-  default     = null
-  description = "List of metric categories to send"
-}
-
-variable "logs_destinations_ids" {
-  type        = list(string)
-  description = "List of destination resources IDs for logs diagnostic destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set."
-  default     = []
-}
-
-variable "log_destination_type" {
-  type        = string
-  description = "Log sent to Log Analytics can be sent to 'Dedicated' log tables or the legacy 'AzureDiagnostics'"
-  default     = "Dedicated"
 }
