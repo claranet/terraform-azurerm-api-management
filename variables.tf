@@ -3,18 +3,6 @@ variable "client_name" {
   type        = string
 }
 
-variable "name_prefix" {
-  description = "Optional prefix for Network Security Group name"
-  type        = string
-  default     = ""
-}
-
-variable "custom_name" {
-  description = "Custom API Management name, generated if not set"
-  type        = string
-  default     = ""
-}
-
 variable "environment" {
   description = "Project environment"
   type        = string
