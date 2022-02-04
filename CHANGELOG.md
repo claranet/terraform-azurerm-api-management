@@ -1,5 +1,10 @@
 # Unreleased
 
+Breaking
+  * AZ-589: Upgrade `diagnostics` to `v5.0.0`
+  * AZ-589: Variables name cleanup
+  * AZ-515: Require Terraform 0.13+
+
 Added
   * AZ-615: Add an option to enable or disable default tags
   * AZ-615: Add a default value to `terms_of_service_configuration` variable (required since AzureRM v2.26)

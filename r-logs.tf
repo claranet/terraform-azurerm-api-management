@@ -1,15 +1,16 @@
-module "logging" {
+module "diagnostics" {
   source  = "claranet/diagnostic-settings/azurerm"
-  version = "4.0.3"
+  version = "5.0.0"
 
-  name = local.diag_settings_name
-
-  log_analytics_destination_type = var.log_destination_type
+  resource_id = azurerm_api_management.apim.id
 
   logs_destinations_ids = var.logs_destinations_ids
-  resource_id           = azurerm_api_management.apim.id
-  retention_days        = var.logs_storage_retention
+  log_categories        = var.logs_categories
+  metric_categories     = var.logs_metrics_categories
+  retention_days        = var.logs_retention_days
 
-  log_categories    = var.log_categories
-  metric_categories = var.metric_categories
+  custom_name    = var.custom_diagnostic_settings_name
+  use_caf_naming = false #var.use_caf_naming
+  name_prefix    = var.name_prefix
+  name_suffix    = var.name_suffix
 }

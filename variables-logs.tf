@@ -1,35 +1,30 @@
-variable "diag_settings_name" {
-  description = "Custom name for the diagnostic settings of Application Gateway."
-  type        = string
-  default     = ""
-}
-
-variable "logs_storage_retention" {
-  description = "Retention in days for logs on Storage Account"
-  type        = number
-  default     = 30
-}
-
-variable "log_categories" {
-  type        = list(string)
-  default     = null
-  description = "List of log categories to send"
-}
-
-variable "metric_categories" {
-  type        = list(string)
-  default     = null
-  description = "List of metric categories to send"
-}
+# Diag settings / logs parameters
 
 variable "logs_destinations_ids" {
   type        = list(string)
-  description = "List of destination resources IDs for logs diagnostic destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set."
-  default     = []
+  description = "List of destination resources Ids for logs diagnostics destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set. Empty list to disable logging."
 }
 
-variable "log_destination_type" {
+variable "logs_categories" {
+  type        = list(string)
+  description = "Log categories to send to destinations."
+  default     = null
+}
+
+variable "logs_metrics_categories" {
+  type        = list(string)
+  description = "Metrics categories to send to destinations."
+  default     = null
+}
+
+variable "logs_retention_days" {
+  type        = number
+  description = "Number of days to keep logs on storage account"
+  default     = 30
+}
+
+variable "custom_diagnostic_settings_name" {
+  description = "Custom name of the diagnostics settings, name will be 'default' if not set."
   type        = string
-  description = "Log sent to Log Analytics can be sent to 'Dedicated' log tables or the legacy 'AzureDiagnostics'"
-  default     = "Dedicated"
+  default     = "default"
 }
