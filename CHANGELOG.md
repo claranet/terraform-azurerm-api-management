@@ -1,4 +1,4 @@
-# Unreleased
+# v4.3.0 - 2022-02-04
 
 Breaking
   * AZ-589: Upgrade `diagnostics` to `v5.0.0`
