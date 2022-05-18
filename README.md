@@ -102,7 +102,7 @@ module "apim" {
 
 | Name | Version |
 |------|---------|
-| azurerm | ~> 2.29 |
+| azurerm | ~> 3.0 |
 
 ## Modules
 
