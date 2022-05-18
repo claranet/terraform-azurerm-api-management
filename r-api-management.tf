@@ -6,11 +6,14 @@ resource "azurerm_api_management" "apim" {
   publisher_name  = var.publisher_name
   publisher_email = var.publisher_email
   sku_name        = var.sku_name
+  zones           = var.zones
 
   dynamic "additional_location" {
     for_each = var.additional_location
     content {
       location = lookup(additional_location.value, "location", null)
+      capacity = lookup(additional_location.value, "capacity", null)
+      zones    = lookup(additional_location.value, "zones", [1, 2, 3])
       dynamic "virtual_network_configuration" {
         for_each = lookup(additional_location.value, "subnet_id", null) == null ? [] : [1]
         content {
@@ -28,6 +31,10 @@ resource "azurerm_api_management" "apim" {
       store_name           = lookup(certificate.value, "store_name")
     }
   }
+
+  client_certificate_enabled = var.client_certificate_enabled
+  gateway_disabled           = var.gateway_disabled
+  min_api_version            = var.min_api_version
 
   identity {
     type         = var.identity_type
