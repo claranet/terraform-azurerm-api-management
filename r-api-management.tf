@@ -119,13 +119,31 @@ resource "azurerm_api_management" "apim" {
   dynamic "security" {
     for_each = var.security_configuration
     content {
-      enable_backend_ssl30      = lookup(security.value, "enable_backend_ssl30", false)
-      enable_backend_tls10      = lookup(security.value, "enable_backend_tls10", false)
-      enable_backend_tls11      = lookup(security.value, "enable_backend_tls11", false)
-      enable_frontend_ssl30     = lookup(security.value, "enable_frontend_ssl30", false)
-      enable_frontend_tls10     = lookup(security.value, "enable_frontend_tls10", false)
-      enable_frontend_tls11     = lookup(security.value, "enable_frontend_tls11", false)
-      enable_triple_des_ciphers = lookup(security.value, "enable_triple_des_ciphers", false)
+      enable_backend_ssl30  = lookup(security.value, "enable_backend_ssl30", false)
+      enable_backend_tls10  = lookup(security.value, "enable_backend_tls10", false)
+      enable_backend_tls11  = lookup(security.value, "enable_backend_tls11", false)
+      enable_frontend_ssl30 = lookup(security.value, "enable_frontend_ssl30", false)
+      enable_frontend_tls10 = lookup(security.value, "enable_frontend_tls10", false)
+      enable_frontend_tls11 = lookup(security.value, "enable_frontend_tls11", false)
+
+      tls_ecdhe_ecdsa_with_aes128_cbc_sha_ciphers_enabled = lookup(security.value, "tls_ecdhe_ecdsa_with_aes128_cbc_sha_ciphers_enabled", false)
+      tls_ecdhe_ecdsa_with_aes256_cbc_sha_ciphers_enabled = lookup(security.value, "tls_ecdhe_ecdsa_with_aes256_cbc_sha_ciphers_enabled", false)
+      tls_ecdheRsa_with_aes128_cbc_sha_ciphers_enabled    = lookup(security.value, "tls_ecdheRsa_with_aes128_cbc_sha_ciphers_enabled", false)
+      tls_ecdheRsa_with_aes256_cbc_sha_ciphers_enabled    = lookup(security.value, "tls_ecdheRsa_with_aes256_cbc_sha_ciphers_enabled", false)
+      tls_rsa_with_aes128_cbc_sha256_ciphers_enabled      = lookup(security.value, "tls_rsa_with_aes128_cbc_sha256_ciphers_enabled", false)
+      tls_rsa_with_aes128_cbc_sha_ciphers_enabled         = lookup(security.value, "tls_rsa_with_aes128_cbc_sha_ciphers_enabled", false)
+      tls_rsa_with_aes128_gcm_sha256_ciphers_enabled      = lookup(security.value, "tls_rsa_with_aes128_gcm_sha256_ciphers_enabled", false)
+      tls_rsa_with_aes256_cbc_sha256_ciphers_enabled      = lookup(security.value, "tls_rsa_with_aes256_cbc_sha256_ciphers_enabled", false)
+      tls_rsa_with_aes256_cbc_sha_ciphers_enabled         = lookup(security.value, "tls_rsa_with_aes256_cbc_sha_ciphers_enabled", false)
+
+      triple_des_ciphers_enabled = lookup(security.value, "triple_des_ciphers_enabled ", false)
+
+      disable_backend_ssl30  = lookup(security.value, "disable_backend_ssl30", false)
+      disable_backend_tls10  = lookup(security.value, "disable_backend_tls10", false)
+      disable_backend_tls11  = lookup(security.value, "disable_backend_tls11", false)
+      disable_frontend_ssl30 = lookup(security.value, "disable_frontend_ssl30", false)
+      disable_frontend_tls10 = lookup(security.value, "disable_frontend_tls10", false)
+      disable_frontend_tls11 = lookup(security.value, "disable_frontend_tls11", false)
     }
   }
 
