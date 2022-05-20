@@ -1,3 +1,9 @@
+# Unreleased
+
+Breaking
+  * AZ-717: Require Terraform 1.0+
+  * AZ-717: Bump AzureRM provider version to `v3.0+`
+
 # v4.3.0 - 2022-02-04
 
 Breaking

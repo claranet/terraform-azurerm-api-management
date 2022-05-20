@@ -50,10 +50,34 @@ variable "additional_location" {
   default     = []
 }
 
+variable "zones" {
+  type        = list(number)
+  description = "(Optional) Specifies a list of Availability Zones in which this API Management service should be located. Changing this forces a new API Management service to be created. Supported in Premium Tier."
+  default     = [1, 2, 3]
+}
+
 variable "certificate_configuration" {
   type        = list(map(string))
   description = "List of certificate configurations"
   default     = []
+}
+
+variable "client_certificate_enabled" {
+  type        = bool
+  description = "(Optional) Enforce a client certificate to be presented on each request to the gateway? This is only supported when SKU type is `Consumption`."
+  default     = false
+}
+
+variable "gateway_disabled" {
+  type        = bool
+  description = "(Optional) Disable the gateway in main region? This is only supported when `additional_location` is set."
+  default     = false
+}
+
+variable "min_api_version" {
+  type        = string
+  description = "(Optional) The version which the control plane API calls to API Management service are limited with version equal to or newer than."
+  default     = null
 }
 
 variable "enable_http2" {
