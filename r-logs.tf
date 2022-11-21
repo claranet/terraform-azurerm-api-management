@@ -1,6 +1,6 @@
 module "diagnostics" {
   source  = "claranet/diagnostic-settings/azurerm"
-  version = "5.0.0"
+  version = "6.1.0"
 
   resource_id = azurerm_api_management.apim.id
 

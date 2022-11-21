@@ -1,5 +1,5 @@
 resource "azurerm_api_management" "apim" {
-  name                = coalesce(var.custom_name, local.default_name)
+  name                = local.apim_name
   location            = var.location
   resource_group_name = var.resource_group_name
 

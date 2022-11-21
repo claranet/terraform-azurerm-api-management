@@ -2,7 +2,7 @@ resource "azurerm_network_security_rule" "management_apim" {
   count                       = var.create_management_rule ? 1 : 0
   access                      = "Allow"
   direction                   = "Inbound"
-  name                        = "allow_apim_management"
+  name                        = local.nsg_rule_name
   network_security_group_name = var.nsg_name
   priority                    = var.management_nsg_rule_priority
   protocol                    = "Tcp"
@@ -13,4 +13,3 @@ resource "azurerm_network_security_rule" "management_apim" {
   source_address_prefix      = "ApiManagement"
   destination_address_prefix = "VirtualNetwork"
 }
-

@@ -11,9 +11,21 @@ variable "name_suffix" {
   default     = ""
 }
 
+variable "use_caf_naming" {
+  description = "Use the Azure CAF naming provider to generate default resource name. `custom_name` override this if set. Legacy default name is used if this is set to `false`."
+  type        = bool
+  default     = true
+}
+
 # Custom naming override
 variable "custom_name" {
-  description = "Custom API Management name, generated if not set"
+  description = "Custom API Management name, generated if not set."
+  type        = string
+  default     = ""
+}
+
+variable "custom_management_rule_name" {
+  description = "Custom NSG rule name for APIM Management."
   type        = string
   default     = ""
 }
