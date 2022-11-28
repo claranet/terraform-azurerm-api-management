@@ -1,3 +1,11 @@
+# Unreleased
+
+Breaking
+  * AZ-908: Implement Azure CAF naming (using Microsoft provider)
+
+Changed
+  * AZ-908: Bump `diagnostics-settings`
+
 # v6.0.0 - 2022-05-20
 
 Breaking
