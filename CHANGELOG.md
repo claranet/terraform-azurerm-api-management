@@ -1,3 +1,8 @@
+# Unreleased
+
+Fixed
+  * [GH-4](https://github.com/claranet/terraform-azurerm-api-management/pull/4): Make `sign_in` and `sign_up` blocks conditional
+
 # v6.1.0 - 2022-11-28
 
 Breaking
