@@ -147,18 +147,25 @@ resource "azurerm_api_management" "apim" {
     }
   }
 
-  sign_in {
-    enabled = var.enable_sign_in
+  dynamic "sign_in" {
+    for_each = var.enable_sign_in ? ["enabled"] : []
+    content {
+      enabled = var.enable_sign_in
+    }
   }
 
-  sign_up {
-    enabled = var.enable_sign_up
-    dynamic "terms_of_service" {
-      for_each = var.terms_of_service_configuration
-      content {
-        consent_required = lookup(terms_of_service.value, "consent_required")
-        enabled          = lookup(terms_of_service.value, "enabled")
-        text             = lookup(terms_of_service.value, "text")
+  dynamic "sign_up" {
+    for_each = var.enable_sign_up ? ["enabled"] : []
+
+    content {
+      enabled = var.enable_sign_up
+      dynamic "terms_of_service" {
+        for_each = var.terms_of_service_configuration
+        content {
+          consent_required = lookup(terms_of_service.value, "consent_required")
+          enabled          = lookup(terms_of_service.value, "enabled")
+          text             = lookup(terms_of_service.value, "text")
+        }
       }
     }
   }
