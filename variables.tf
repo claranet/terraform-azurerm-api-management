@@ -28,10 +28,21 @@ variable "location_short" {
   type        = string
 }
 
-variable "sku_name" {
+variable "sku_tier" {
   type        = string
-  description = "String consisting of two parts separated by an underscore. The fist part is the name, valid values include: Developer, Basic, Standard and Premium. The second part is the capacity"
-  default     = "Basic_1"
+  description = "APIM SKU. Valid values include: Developer, Basic, Standard, StandardV2 and Premium."
+  default     = "Basic"
+
+  validation {
+    condition     = contains(["Developer", "Basic", "Standard", "StandardV2", "Premium"], var.sku_tier)
+    error_message = "Invalid SKU tier. Valid values include: Developer, Basic, Standard, StandardV2 and Premium."
+  }
+}
+
+variable "sku_capacity" {
+  type        = number
+  description = "APIM SKU capacity."
+  default     = 1
 }
 
 variable "publisher_name" {
@@ -45,9 +56,16 @@ variable "publisher_email" {
 }
 
 variable "additional_location" {
-  type        = list(map(string))
-  description = "List of the name of the Azure Region in which the API Management Service should be expanded to."
+  type = list(object({
+    location             = string
+    capacity             = optional(number)
+    zones                = optional(list(number), [1, 2, 3])
+    public_ip_address_id = optional(string)
+    subnet_id            = optional(string)
+  }))
+  description = "List of the Azure Region in which the API Management Service should be expanded to."
   default     = []
+  nullable    = false
 }
 
 variable "zones" {
@@ -57,9 +75,19 @@ variable "zones" {
 }
 
 variable "certificate_configuration" {
-  type        = list(map(string))
-  description = "List of certificate configurations"
+  type = list(object({
+    encoded_certificate  = string
+    certificate_password = optional(string)
+    store_name           = string
+  }))
+  description = "List of certificate configurations."
   default     = []
+  nullable    = false
+
+  validation {
+    condition     = alltrue([for cert in var.certificate_configuration : contains(["Root", "CertificateAuthority"], cert.store_name)])
+    error_message = "Possible values are `CertificateAuthority` and `Root` for 'store_name' attribute."
+  }
 }
 
 variable "client_certificate_enabled" {
@@ -86,74 +114,137 @@ variable "enable_http2" {
   default     = false
 }
 
+## hostname_configurations
+
 variable "management_hostname_configuration" {
-  type        = list(map(string))
-  description = "List of management hostname configurations"
+  type = list(object({
+    host_name                    = string
+    key_vault_id                 = optional(string)
+    certificate                  = optional(string)
+    certificate_password         = optional(string)
+    negotiate_client_certificate = optional(bool, false)
+  }))
+  description = "List of management hostname configurations."
   default     = []
-}
-
-variable "scm_hostname_configuration" {
-  type        = list(map(string))
-  description = "List of scm hostname configurations"
-  default     = []
-}
-
-variable "proxy_hostname_configuration" {
-  type        = list(map(string))
-  description = "List of proxy hostname configurations"
-  default     = []
+  nullable    = false
 }
 
 variable "portal_hostname_configuration" {
-  type        = list(map(string))
-  description = "Legacy portal hostname configurations"
+  type = list(object({
+    host_name                    = string
+    key_vault_id                 = optional(string)
+    certificate                  = optional(string)
+    certificate_password         = optional(string)
+    negotiate_client_certificate = optional(bool, false)
+  }))
+  description = "Legacy Portal hostname configurations."
   default     = []
+  nullable    = false
 }
 
 variable "developer_portal_hostname_configuration" {
-  type        = list(map(string))
-  description = "Developer portal hostname configurations"
+  type = list(object({
+    host_name                    = string
+    key_vault_id                 = optional(string)
+    certificate                  = optional(string)
+    certificate_password         = optional(string)
+    negotiate_client_certificate = optional(bool, false)
+  }))
+  description = "Developer Portal hostname configurations."
   default     = []
+  nullable    = false
 }
+
+variable "proxy_hostname_configuration" {
+  type = list(object({
+    host_name                    = string
+    key_vault_id                 = optional(string)
+    certificate                  = optional(string)
+    certificate_password         = optional(string)
+    negotiate_client_certificate = optional(bool, false)
+  }))
+  description = "List of proxy hostname configurations."
+  default     = []
+  nullable    = false
+}
+
+variable "scm_hostname_configuration" {
+  type = list(object({
+    host_name                    = string
+    key_vault_id                 = optional(string)
+    certificate                  = optional(string)
+    certificate_password         = optional(string)
+    negotiate_client_certificate = optional(bool, false)
+  }))
+  description = "List of SCM hostname configurations."
+  default     = []
+  nullable    = false
+}
+
+##
 
 variable "notification_sender_email" {
   type        = string
-  description = "Email address from which the notification will be sent"
+  description = "Email address from which the notification will be sent."
   default     = null
 }
 
 variable "policy_configuration" {
-  type        = map(string)
-  description = "Map of policy configuration"
-  default     = {}
+  type = list(object({
+    name        = optional(string, "default")
+    xml_content = optional(string)
+    xml_link    = optional(string)
+  }))
+  description = "Policies configurations."
+  default     = []
+  nullable    = false
 }
 
-variable "enable_sign_in" {
+variable "sign_in_enabled" {
   type        = bool
   description = "Should anonymous users be redirected to the sign in page?"
   default     = false
 }
 
-variable "enable_sign_up" {
+variable "sign_up_enabled" {
   type        = bool
   description = "Can users sign up on the development portal?"
   default     = false
 }
 
 variable "terms_of_service_configuration" {
-  type        = list(map(string))
-  description = "Map of terms of service configuration"
-
-  default = [{
-    consent_required = false
-    enabled          = false
-    text             = ""
-  }]
+  type = list(object({
+    consent_required = optional(bool, false)
+    enabled          = optional(bool, false)
+    text             = optional(string, "")
+  }))
+  description = "Terms of service configurations."
+  default     = []
+  nullable    = false
 }
 
 variable "security_configuration" {
-  type        = map(string)
-  description = "Map of security configuration"
+  type = object({
+    enable_backend_ssl30  = optional(bool, false)
+    enable_backend_tls10  = optional(bool, false)
+    enable_backend_tls11  = optional(bool, false)
+    enable_frontend_ssl30 = optional(bool, false)
+    enable_frontend_tls10 = optional(bool, false)
+    enable_frontend_tls11 = optional(bool, false)
+
+    tls_ecdhe_ecdsa_with_aes128_cbc_sha_ciphers_enabled = optional(bool, false)
+    tls_ecdhe_ecdsa_with_aes256_cbc_sha_ciphers_enabled = optional(bool, false)
+    tls_ecdhe_rsa_with_aes128_cbc_sha_ciphers_enabled   = optional(bool, false)
+    tls_ecdhe_rsa_with_aes256_cbc_sha_ciphers_enabled   = optional(bool, false)
+    tls_rsa_with_aes128_cbc_sha256_ciphers_enabled      = optional(bool, false)
+    tls_rsa_with_aes128_cbc_sha_ciphers_enabled         = optional(bool, false)
+    tls_rsa_with_aes128_gcm_sha256_ciphers_enabled      = optional(bool, false)
+    tls_rsa_with_aes256_cbc_sha256_ciphers_enabled      = optional(bool, false)
+    tls_rsa_with_aes256_cbc_sha_ciphers_enabled         = optional(bool, false)
+
+    triple_des_ciphers_enabled = optional(bool, false)
+  })
+  description = "Security configuration block."
   default     = {}
 }
 
@@ -210,13 +301,13 @@ variable "identity_ids" {
 }
 
 variable "named_values" {
-  description = "Map containing the name of the named values as key and value as values"
+  description = "Map containing the name of the named values as key and value as values."
   type        = list(map(string))
   default     = []
 }
 
 variable "products" {
-  description = "List of products to create"
+  description = "List of products to create."
   type        = list(string)
   default     = []
 }
