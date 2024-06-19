@@ -166,7 +166,7 @@ module "apim" {
 | min\_api\_version | (Optional) The version which the control plane API calls to API Management service are limited with version equal to or newer than. | `string` | `null` | no |
 | name\_prefix | Optional prefix for the generated name | `string` | `""` | no |
 | name\_suffix | Optional suffix for the generated name | `string` | `""` | no |
-| named\_values | Map containing the name of the named values as key and value as values. | `list(map(string))` | `[]` | no |
+| named\_values | Named values configurations. | <pre>list(object({<br>    name         = string<br>    display_name = optional(string)<br>    value        = string<br>    secret       = optional(bool, false)<br>  }))</pre> | `[]` | no |
 | notification\_sender\_email | Email address from which the notification will be sent. | `string` | `null` | no |
 | nsg\_name | NSG name of the subnet hosting the APIM to add the rule to allow management if the APIM is private | `string` | `null` | no |
 | nsg\_rg\_name | Name of the RG hosting the NSG if it's different from the one hosting the APIM | `string` | `null` | no |

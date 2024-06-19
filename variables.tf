@@ -301,9 +301,15 @@ variable "identity_ids" {
 }
 
 variable "named_values" {
-  description = "Map containing the name of the named values as key and value as values."
-  type        = list(map(string))
-  default     = []
+  description = "Named values configurations."
+  type = list(object({
+    name         = string
+    display_name = optional(string)
+    value        = string
+    secret       = optional(bool, false)
+  }))
+  default  = []
+  nullable = false
 }
 
 variable "products" {
