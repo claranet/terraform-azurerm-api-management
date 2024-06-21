@@ -1,3 +1,53 @@
+## 7.0.0 (2024-06-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* tf `v1.3+` required and provider AzureRM `v3.108+`
+
+### Features
+
+* refactor APIM module debdd4a
+
+
+### Code Refactoring
+
+* update `named_values` variable type 275bcc1
+* update `variables.tf` 8401eef
+
+
+### Continuous Integration
+
+* **AZ-1391:** enable semantic-release [skip ci] f589d16
+* **AZ-1391:** update semantic-release config [skip ci] 3d48a51
+
+
+### Miscellaneous Chores
+
+* **deps:** add renovate.json 5160a45
+* **deps:** enable automerge on renovate d298dc1
+* **deps:** update dependency opentofu to v1.7.0 4aaf6ac
+* **deps:** update dependency opentofu to v1.7.1 b1496ca
+* **deps:** update dependency opentofu to v1.7.2 c956401
+* **deps:** update dependency pre-commit to v3.7.1 dddd2f3
+* **deps:** update dependency terraform-docs to v0.18.0 e1171c1
+* **deps:** update dependency tflint to v0.51.0 9675b83
+* **deps:** update dependency tflint to v0.51.1 f6b69ab
+* **deps:** update dependency trivy to v0.50.2 7f8ae88
+* **deps:** update dependency trivy to v0.50.4 e545997
+* **deps:** update dependency trivy to v0.51.0 bab7ec3
+* **deps:** update dependency trivy to v0.51.1 b38ba55
+* **deps:** update dependency trivy to v0.51.2 cc22d34
+* **deps:** update dependency trivy to v0.51.3 6363cd0
+* **deps:** update dependency trivy to v0.51.4 2585242
+* **deps:** update dependency trivy to v0.52.0 440301d
+* **deps:** update dependency trivy to v0.52.1 1b34e7c
+* **deps:** update dependency trivy to v0.52.2 5b1da7c
+* **deps:** update pre-commit hook antonbabenko/pre-commit-terraform to v1.92.0 9b36f88
+* **deps:** update renovate.json 703e1d7
+* **pre-commit:** update commitlint hook 92591d1
+* **release:** remove legacy `VERSION` file ae59c6e
+
 # v6.2.0 - 2023-11-17
 
 Breaking
