@@ -39,7 +39,9 @@ module "apim" {
 
   resource_group_name = module.rg.resource_group_name
 
-  sku_name        = "Standard_1"
+  sku_tier     = "Standard"
+  sku_capacity = 1
+
   publisher_name  = "Contoso ApiManager"
   publisher_email = "api_manager@test.com"
 
