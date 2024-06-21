@@ -142,20 +142,20 @@ module "apim" {
 | additional\_location | List of the Azure Region in which the API Management Service should be expanded to. | <pre>list(object({<br>    location             = string<br>    capacity             = optional(number)<br>    zones                = optional(list(number), [1, 2, 3])<br>    public_ip_address_id = optional(string)<br>    subnet_id            = optional(string)<br>  }))</pre> | `[]` | no |
 | certificate\_configuration | List of certificate configurations. | <pre>list(object({<br>    encoded_certificate  = string<br>    certificate_password = optional(string)<br>    store_name           = string<br>  }))</pre> | `[]` | no |
 | client\_certificate\_enabled | (Optional) Enforce a client certificate to be presented on each request to the gateway? This is only supported when SKU type is `Consumption`. | `bool` | `false` | no |
-| client\_name | Client name/account used in naming | `string` | n/a | yes |
+| client\_name | Client name/account used in naming. | `string` | n/a | yes |
 | create\_management\_rule | Whether to create the NSG rule for the management port of the APIM. If true, nsg\_name variable must be set | `bool` | `false` | no |
-| create\_product\_group\_and\_relationships | Create local APIM groups with name identical to products and create a relationship between groups and products | `bool` | `false` | no |
+| create\_product\_group\_and\_relationships | Create local APIM groups with name identical to products and create a relationship between groups and products. | `bool` | `false` | no |
 | custom\_diagnostic\_settings\_name | Custom name of the diagnostics settings, name will be 'default' if not set. | `string` | `"default"` | no |
 | custom\_management\_rule\_name | Custom NSG rule name for APIM Management. | `string` | `""` | no |
 | custom\_name | Custom API Management name, generated if not set. | `string` | `""` | no |
 | default\_tags\_enabled | Option to enable or disable default tags | `bool` | `true` | no |
 | developer\_portal\_hostname\_configuration | Developer Portal hostname configurations. | <pre>list(object({<br>    host_name                    = string<br>    key_vault_id                 = optional(string)<br>    certificate                  = optional(string)<br>    certificate_password         = optional(string)<br>    negotiate_client_certificate = optional(bool, false)<br>  }))</pre> | `[]` | no |
 | enable\_http2 | Should HTTP/2 be supported by the API Management Service? | `bool` | `false` | no |
-| environment | Project environment | `string` | n/a | yes |
+| environment | Project environment. | `string` | n/a | yes |
 | extra\_tags | Extra tags to add | `map(string)` | `{}` | no |
 | gateway\_disabled | (Optional) Disable the gateway in main region? This is only supported when `additional_location` is set. | `bool` | `false` | no |
-| identity\_ids | A list of IDs for User Assigned Managed Identity resources to be assigned. This is required when type is set to UserAssigned or SystemAssigned, UserAssigned. | `list(string)` | `[]` | no |
-| identity\_type | Type of Managed Service Identity that should be configured on this API Management Service | `string` | `"SystemAssigned"` | no |
+| identity\_ids | A list of IDs for User Assigned Managed Identity resources to be assigned. This is required when type is set to `UserAssigned` or `SystemAssigned, UserAssigned`. | `list(string)` | `[]` | no |
+| identity\_type | Type of Managed Service Identity that should be configured on this API Management Service. | `string` | `"SystemAssigned"` | no |
 | location | Azure location for Eventhub. | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
 | logs\_categories | Log categories to send to destinations. | `list(string)` | `null` | no |
@@ -176,14 +176,14 @@ module "apim" {
 | proxy\_hostname\_configuration | List of proxy hostname configurations. | <pre>list(object({<br>    host_name                    = string<br>    key_vault_id                 = optional(string)<br>    certificate                  = optional(string)<br>    certificate_password         = optional(string)<br>    negotiate_client_certificate = optional(bool, false)<br>  }))</pre> | `[]` | no |
 | publisher\_email | The email of publisher/company. | `string` | n/a | yes |
 | publisher\_name | The name of publisher/company. | `string` | n/a | yes |
-| resource\_group\_name | Name of the resource group | `string` | n/a | yes |
+| resource\_group\_name | Name of the resource group. | `string` | n/a | yes |
 | scm\_hostname\_configuration | List of SCM hostname configurations. | <pre>list(object({<br>    host_name                    = string<br>    key_vault_id                 = optional(string)<br>    certificate                  = optional(string)<br>    certificate_password         = optional(string)<br>    negotiate_client_certificate = optional(bool, false)<br>  }))</pre> | `[]` | no |
 | security\_configuration | Security configuration block. | <pre>object({<br>    enable_backend_ssl30  = optional(bool, false)<br>    enable_backend_tls10  = optional(bool, false)<br>    enable_backend_tls11  = optional(bool, false)<br>    enable_frontend_ssl30 = optional(bool, false)<br>    enable_frontend_tls10 = optional(bool, false)<br>    enable_frontend_tls11 = optional(bool, false)<br><br>    tls_ecdhe_ecdsa_with_aes128_cbc_sha_ciphers_enabled = optional(bool, false)<br>    tls_ecdhe_ecdsa_with_aes256_cbc_sha_ciphers_enabled = optional(bool, false)<br>    tls_ecdhe_rsa_with_aes128_cbc_sha_ciphers_enabled   = optional(bool, false)<br>    tls_ecdhe_rsa_with_aes256_cbc_sha_ciphers_enabled   = optional(bool, false)<br>    tls_rsa_with_aes128_cbc_sha256_ciphers_enabled      = optional(bool, false)<br>    tls_rsa_with_aes128_cbc_sha_ciphers_enabled         = optional(bool, false)<br>    tls_rsa_with_aes128_gcm_sha256_ciphers_enabled      = optional(bool, false)<br>    tls_rsa_with_aes256_cbc_sha256_ciphers_enabled      = optional(bool, false)<br>    tls_rsa_with_aes256_cbc_sha_ciphers_enabled         = optional(bool, false)<br><br>    triple_des_ciphers_enabled = optional(bool, false)<br>  })</pre> | `{}` | no |
 | sign\_in\_enabled | Should anonymous users be redirected to the sign in page? | `bool` | `false` | no |
 | sign\_up\_enabled | Can users sign up on the development portal? | `bool` | `false` | no |
 | sku\_capacity | APIM SKU capacity. | `number` | `1` | no |
 | sku\_tier | APIM SKU. Valid values include: Developer, Basic, Standard, StandardV2 and Premium. | `string` | `"Basic"` | no |
-| stack | Project stack name | `string` | n/a | yes |
+| stack | Project stack name. | `string` | n/a | yes |
 | terms\_of\_service\_configuration | Terms of service configurations. | <pre>list(object({<br>    consent_required = optional(bool, false)<br>    enabled          = optional(bool, false)<br>    text             = optional(string, "")<br>  }))</pre> | `[]` | no |
 | use\_caf\_naming | Use the Azure CAF naming provider to generate default resource name. `custom_name` override this if set. Legacy default name is used if this is set to `false`. | `bool` | `true` | no |
 | virtual\_network\_configuration | The id(s) of the subnet(s) that will be used for the API Management. Required when virtual\_network\_type is External or Internal | `list(string)` | `[]` | no |

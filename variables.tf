@@ -1,20 +1,20 @@
 variable "client_name" {
-  description = "Client name/account used in naming"
+  description = "Client name/account used in naming."
   type        = string
 }
 
 variable "environment" {
-  description = "Project environment"
+  description = "Project environment."
   type        = string
 }
 
 variable "stack" {
-  description = "Project stack name"
+  description = "Project stack name."
   type        = string
 }
 
 variable "resource_group_name" {
-  description = "Name of the resource group"
+  description = "Name of the resource group."
   type        = string
 }
 
@@ -29,8 +29,8 @@ variable "location_short" {
 }
 
 variable "sku_tier" {
-  type        = string
   description = "APIM SKU. Valid values include: Developer, Basic, Standard, StandardV2 and Premium."
+  type        = string
   default     = "Basic"
 
   validation {
@@ -40,22 +40,23 @@ variable "sku_tier" {
 }
 
 variable "sku_capacity" {
-  type        = number
   description = "APIM SKU capacity."
+  type        = number
   default     = 1
 }
 
 variable "publisher_name" {
-  type        = string
   description = "The name of publisher/company."
+  type        = string
 }
 
 variable "publisher_email" {
-  type        = string
   description = "The email of publisher/company."
+  type        = string
 }
 
 variable "additional_location" {
+  description = "List of the Azure Region in which the API Management Service should be expanded to."
   type = list(object({
     location             = string
     capacity             = optional(number)
@@ -63,26 +64,25 @@ variable "additional_location" {
     public_ip_address_id = optional(string)
     subnet_id            = optional(string)
   }))
-  description = "List of the Azure Region in which the API Management Service should be expanded to."
-  default     = []
-  nullable    = false
+  default  = []
+  nullable = false
 }
 
 variable "zones" {
-  type        = list(number)
   description = "(Optional) Specifies a list of Availability Zones in which this API Management service should be located. Changing this forces a new API Management service to be created. Supported in Premium Tier."
+  type        = list(number)
   default     = [1, 2, 3]
 }
 
 variable "certificate_configuration" {
+  description = "List of certificate configurations."
   type = list(object({
     encoded_certificate  = string
     certificate_password = optional(string)
     store_name           = string
   }))
-  description = "List of certificate configurations."
-  default     = []
-  nullable    = false
+  default  = []
+  nullable = false
 
   validation {
     condition     = alltrue([for cert in var.certificate_configuration : contains(["Root", "CertificateAuthority"], cert.store_name)])
@@ -91,32 +91,33 @@ variable "certificate_configuration" {
 }
 
 variable "client_certificate_enabled" {
-  type        = bool
   description = "(Optional) Enforce a client certificate to be presented on each request to the gateway? This is only supported when SKU type is `Consumption`."
+  type        = bool
   default     = false
 }
 
 variable "gateway_disabled" {
-  type        = bool
   description = "(Optional) Disable the gateway in main region? This is only supported when `additional_location` is set."
+  type        = bool
   default     = false
 }
 
 variable "min_api_version" {
-  type        = string
   description = "(Optional) The version which the control plane API calls to API Management service are limited with version equal to or newer than."
+  type        = string
   default     = null
 }
 
 variable "enable_http2" {
-  type        = bool
   description = "Should HTTP/2 be supported by the API Management Service?"
+  type        = bool
   default     = false
 }
 
 ## hostname_configurations
 
 variable "management_hostname_configuration" {
+  description = "List of management hostname configurations."
   type = list(object({
     host_name                    = string
     key_vault_id                 = optional(string)
@@ -124,12 +125,12 @@ variable "management_hostname_configuration" {
     certificate_password         = optional(string)
     negotiate_client_certificate = optional(bool, false)
   }))
-  description = "List of management hostname configurations."
-  default     = []
-  nullable    = false
+  default  = []
+  nullable = false
 }
 
 variable "portal_hostname_configuration" {
+  description = "Legacy Portal hostname configurations."
   type = list(object({
     host_name                    = string
     key_vault_id                 = optional(string)
@@ -137,12 +138,12 @@ variable "portal_hostname_configuration" {
     certificate_password         = optional(string)
     negotiate_client_certificate = optional(bool, false)
   }))
-  description = "Legacy Portal hostname configurations."
-  default     = []
-  nullable    = false
+  default  = []
+  nullable = false
 }
 
 variable "developer_portal_hostname_configuration" {
+  description = "Developer Portal hostname configurations."
   type = list(object({
     host_name                    = string
     key_vault_id                 = optional(string)
@@ -150,12 +151,12 @@ variable "developer_portal_hostname_configuration" {
     certificate_password         = optional(string)
     negotiate_client_certificate = optional(bool, false)
   }))
-  description = "Developer Portal hostname configurations."
-  default     = []
-  nullable    = false
+  default  = []
+  nullable = false
 }
 
 variable "proxy_hostname_configuration" {
+  description = "List of proxy hostname configurations."
   type = list(object({
     host_name                    = string
     key_vault_id                 = optional(string)
@@ -163,12 +164,12 @@ variable "proxy_hostname_configuration" {
     certificate_password         = optional(string)
     negotiate_client_certificate = optional(bool, false)
   }))
-  description = "List of proxy hostname configurations."
-  default     = []
-  nullable    = false
+  default  = []
+  nullable = false
 }
 
 variable "scm_hostname_configuration" {
+  description = "List of SCM hostname configurations."
   type = list(object({
     host_name                    = string
     key_vault_id                 = optional(string)
@@ -176,54 +177,54 @@ variable "scm_hostname_configuration" {
     certificate_password         = optional(string)
     negotiate_client_certificate = optional(bool, false)
   }))
-  description = "List of SCM hostname configurations."
-  default     = []
-  nullable    = false
+  default  = []
+  nullable = false
 }
 
 ##
 
 variable "notification_sender_email" {
-  type        = string
   description = "Email address from which the notification will be sent."
+  type        = string
   default     = null
 }
 
 variable "policy_configuration" {
+  description = "Policies configurations."
   type = list(object({
     name        = optional(string, "default")
     xml_content = optional(string)
     xml_link    = optional(string)
   }))
-  description = "Policies configurations."
-  default     = []
-  nullable    = false
+  default  = []
+  nullable = false
 }
 
 variable "sign_in_enabled" {
-  type        = bool
   description = "Should anonymous users be redirected to the sign in page?"
+  type        = bool
   default     = false
 }
 
 variable "sign_up_enabled" {
-  type        = bool
   description = "Can users sign up on the development portal?"
+  type        = bool
   default     = false
 }
 
 variable "terms_of_service_configuration" {
+  description = "Terms of service configurations."
   type = list(object({
     consent_required = optional(bool, false)
     enabled          = optional(bool, false)
     text             = optional(string, "")
   }))
-  description = "Terms of service configurations."
-  default     = []
-  nullable    = false
+  default  = []
+  nullable = false
 }
 
 variable "security_configuration" {
+  description = "Security configuration block."
   type = object({
     enable_backend_ssl30  = optional(bool, false)
     enable_backend_tls10  = optional(bool, false)
@@ -244,58 +245,57 @@ variable "security_configuration" {
 
     triple_des_ciphers_enabled = optional(bool, false)
   })
-  description = "Security configuration block."
-  default     = {}
+  default = {}
 }
 
 ### NETWORKING
 
 variable "virtual_network_type" {
-  type        = string
   description = "The type of virtual network you want to use, valid values include: None, External, Internal."
+  type        = string
   default     = null
 }
 
 variable "virtual_network_configuration" {
-  type        = list(string)
   description = "The id(s) of the subnet(s) that will be used for the API Management. Required when virtual_network_type is External or Internal"
+  type        = list(string)
   default     = []
 }
 
 variable "nsg_name" {
-  type        = string
   description = "NSG name of the subnet hosting the APIM to add the rule to allow management if the APIM is private"
+  type        = string
   default     = null
 }
 
 variable "nsg_rg_name" {
-  type        = string
   description = "Name of the RG hosting the NSG if it's different from the one hosting the APIM"
+  type        = string
   default     = null
 }
 
 variable "create_management_rule" {
-  type        = bool
   description = "Whether to create the NSG rule for the management port of the APIM. If true, nsg_name variable must be set"
+  type        = bool
   default     = false
 }
 
 variable "management_nsg_rule_priority" {
-  type        = number
   description = "Priority of the NSG rule created for the management port of the APIM"
+  type        = number
   default     = 101
 }
 
 ### IDENTITY
 
 variable "identity_type" {
-  description = "Type of Managed Service Identity that should be configured on this API Management Service"
+  description = "Type of Managed Service Identity that should be configured on this API Management Service."
   type        = string
   default     = "SystemAssigned"
 }
 
 variable "identity_ids" {
-  description = "A list of IDs for User Assigned Managed Identity resources to be assigned. This is required when type is set to UserAssigned or SystemAssigned, UserAssigned."
+  description = "A list of IDs for User Assigned Managed Identity resources to be assigned. This is required when type is set to `UserAssigned` or `SystemAssigned, UserAssigned`."
   type        = list(string)
   default     = []
 }
@@ -319,7 +319,7 @@ variable "products" {
 }
 
 variable "create_product_group_and_relationships" {
-  description = "Create local APIM groups with name identical to products and create a relationship between groups and products"
+  description = "Create local APIM groups with name identical to products and create a relationship between groups and products."
   type        = bool
   default     = false
 }
