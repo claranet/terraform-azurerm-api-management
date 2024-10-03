@@ -1,3 +1,43 @@
+## 7.1.0 (2024-10-03)
+
+### Features
+
+* use Claranet "azurecaf" provider 097d15e
+
+### Documentation
+
+* update README badge to use OpenTofu registry 1ebb562
+* update README with `terraform-docs` v0.19.0 9caa989
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.7.3 b29d036
+* **deps:** update dependency opentofu to v1.8.0 0c1effc
+* **deps:** update dependency opentofu to v1.8.2 04eecfa
+* **deps:** update dependency pre-commit to v3.8.0 5c8e535
+* **deps:** update dependency terraform-docs to v0.19.0 cc50f80
+* **deps:** update dependency tflint to v0.51.2 9771ee0
+* **deps:** update dependency tflint to v0.52.0 708344b
+* **deps:** update dependency tflint to v0.53.0 fa67eac
+* **deps:** update dependency trivy to v0.53.0 3072168
+* **deps:** update dependency trivy to v0.55.0 837a231
+* **deps:** update dependency trivy to v0.55.1 badc7d5
+* **deps:** update dependency trivy to v0.55.2 b4bf7dd
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.17.0 5e770f5
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.18.0 a1de109
+* **deps:** update pre-commit hook antonbabenko/pre-commit-terraform to v1.92.2 20acc59
+* **deps:** update pre-commit hook antonbabenko/pre-commit-terraform to v1.92.3 1aecd00
+* **deps:** update pre-commit hook antonbabenko/pre-commit-terraform to v1.93.0 d8b26ec
+* **deps:** update pre-commit hook antonbabenko/pre-commit-terraform to v1.94.0 297e7e4
+* **deps:** update pre-commit hook antonbabenko/pre-commit-terraform to v1.94.1 74f36cf
+* **deps:** update pre-commit hook antonbabenko/pre-commit-terraform to v1.94.2 9c47f67
+* **deps:** update pre-commit hook antonbabenko/pre-commit-terraform to v1.94.3 bbe3304
+* **deps:** update pre-commit hook antonbabenko/pre-commit-terraform to v1.95.0 78df36b
+* **deps:** update pre-commit hook antonbabenko/pre-commit-terraform to v1.96.0 b0d9ad3
+* **deps:** update pre-commit hook antonbabenko/pre-commit-terraform to v1.96.1 161f000
+* **deps:** update terraform claranet/diagnostic-settings/azurerm to v7 4086f2b
+* **deps:** update tools 95040a8
+
 ## 7.0.0 (2024-06-21)
 
 
