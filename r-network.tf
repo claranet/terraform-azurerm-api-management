@@ -1,4 +1,4 @@
-resource "azurerm_network_security_rule" "management_apim" {
+resource "azurerm_network_security_rule" "main" {
   count                       = var.create_management_rule ? 1 : 0
   access                      = "Allow"
   direction                   = "Inbound"
@@ -12,4 +12,9 @@ resource "azurerm_network_security_rule" "management_apim" {
   destination_port_range     = "3443"
   source_address_prefix      = "ApiManagement"
   destination_address_prefix = "VirtualNetwork"
+}
+
+moved {
+  from = azurerm_network_security_rule.management_apim
+  to   = azurerm_network_security_rule.main
 }

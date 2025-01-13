@@ -1,54 +1,64 @@
-output "api_management_name" {
-  description = "The name of the API Management Service"
-  value       = azurerm_api_management.apim.name
+output "resource" {
+  description = "The API Management Service resource object."
+  value       = azurerm_api_management.main
 }
 
-output "api_management_id" {
-  description = "The ID of the API Management Service"
-  value       = azurerm_api_management.apim.id
+output "module_diagnostics" {
+  description = "Diagnostics settings module outputs."
+  value       = module.diagnostics
 }
 
-output "api_management_additional_location" {
-  description = "Map listing gateway_regional_url and public_ip_addresses associated"
-  value       = azurerm_api_management.apim.additional_location
+output "name" {
+  description = "The name of the API Management Service."
+  value       = azurerm_api_management.main.name
 }
 
-output "api_management_gateway_url" {
-  description = "The URL of the Gateway for the API Management Service"
-  value       = azurerm_api_management.apim.gateway_url
+output "id" {
+  description = "The ID of the API Management Service."
+  value       = azurerm_api_management.main.id
 }
 
-output "api_management_gateway_regional_url" {
-  description = "The Region URL for the Gateway of the API Management Service"
-  value       = azurerm_api_management.apim.gateway_regional_url
+output "additional_locations" {
+  description = "Map listing `gateway_regional_url` and `public_ip_addresses` associated."
+  value       = azurerm_api_management.main.additional_location
 }
 
-output "api_management_management_api_url" {
-  description = "The URL for the Management API associated with this API Management service"
-  value       = azurerm_api_management.apim.management_api_url
+output "gateway_url" {
+  description = "The gateway's URL of the API Management Service."
+  value       = azurerm_api_management.main.gateway_url
 }
 
-output "api_management_portal_url" {
-  description = "The URL for the Publisher Portal associated with this API Management service"
-  value       = azurerm_api_management.apim.portal_url
+output "gateway_regional_url" {
+  description = "The gateway's regional URL of the API Management Service."
+  value       = azurerm_api_management.main.gateway_regional_url
 }
 
-output "api_management_public_ip_addresses" {
-  description = "The Public IP addresses of the API Management Service"
-  value       = azurerm_api_management.apim.public_ip_addresses
+output "management_api_url" {
+  description = "The management's API URL of the API Management service."
+  value       = azurerm_api_management.main.management_api_url
 }
 
-output "api_management_private_ip_addresses" {
-  description = "The Private IP addresses of the API Management Service"
-  value       = azurerm_api_management.apim.private_ip_addresses
+output "portal_url" {
+  description = "The publisher portal's URL of the API Management service."
+  value       = azurerm_api_management.main.portal_url
 }
 
-output "api_management_scm_url" {
-  description = "The URL for the SCM Endpoint associated with this API Management service"
-  value       = azurerm_api_management.apim.scm_url
+output "public_ip_addresses" {
+  description = "The Public IP addresses of the API Management Service."
+  value       = azurerm_api_management.main.public_ip_addresses
 }
 
-output "api_management_identity" {
-  description = "The identity of the API Management"
-  value       = azurerm_api_management.apim.identity
+output "private_ip_addresses" {
+  description = "The Private IP addresses of the API Management Service."
+  value       = azurerm_api_management.main.private_ip_addresses
+}
+
+output "scm_url" {
+  description = "The SCM Endpoint's URL of the API Management service."
+  value       = azurerm_api_management.main.scm_url
+}
+
+output "identity_principal_id" {
+  description = "API Management system identity principal ID."
+  value       = try(azurerm_api_management.main.identity[0].principal_id, null)
 }
