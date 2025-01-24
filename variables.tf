@@ -1,3 +1,13 @@
+variable "location" {
+  description = "Azure location."
+  type        = string
+}
+
+variable "location_short" {
+  description = "Short string for Azure location."
+  type        = string
+}
+
 variable "client_name" {
   description = "Client name/account used in naming."
   type        = string
@@ -14,17 +24,7 @@ variable "stack" {
 }
 
 variable "resource_group_name" {
-  description = "Name of the resource group."
-  type        = string
-}
-
-variable "location" {
-  description = "Azure location for Eventhub."
-  type        = string
-}
-
-variable "location_short" {
-  description = "Short string for Azure location."
+  description = "Resource group name."
   type        = string
 }
 
@@ -55,8 +55,8 @@ variable "publisher_email" {
   type        = string
 }
 
-variable "additional_location" {
-  description = "List of the Azure Region in which the API Management Service should be expanded to."
+variable "additional_locations" {
+  description = "List of Azure Regions in which the API Management service should be expanded to."
   type = list(object({
     location             = string
     capacity             = optional(number)
@@ -69,12 +69,12 @@ variable "additional_location" {
 }
 
 variable "zones" {
-  description = "(Optional) Specifies a list of Availability Zones in which this API Management service should be located. Changing this forces a new API Management service to be created. Supported in Premium Tier."
+  description = "Specifies a list of Availability Zones in which this API Management service should be located. Changing this forces a new API Management service to be created. Supported in Premium Tier."
   type        = list(number)
   default     = [1, 2, 3]
 }
 
-variable "certificate_configuration" {
+variable "certificate_configurations" {
   description = "List of certificate configurations."
   type = list(object({
     encoded_certificate  = string
@@ -85,7 +85,7 @@ variable "certificate_configuration" {
   nullable = false
 
   validation {
-    condition     = alltrue([for cert in var.certificate_configuration : contains(["Root", "CertificateAuthority"], cert.store_name)])
+    condition     = alltrue([for cert in var.certificate_configurations : contains(["Root", "CertificateAuthority"], cert.store_name)])
     error_message = "Possible values are `CertificateAuthority` and `Root` for 'store_name' attribute."
   }
 }
@@ -96,10 +96,10 @@ variable "client_certificate_enabled" {
   default     = false
 }
 
-variable "gateway_disabled" {
-  description = "(Optional) Disable the gateway in main region? This is only supported when `additional_location` is set."
+variable "gateway_enabled" {
+  description = "Whether enable or disable the gateway in main region? Can be disabled only when `additional_locations` is set."
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "min_api_version" {
@@ -108,7 +108,7 @@ variable "min_api_version" {
   default     = null
 }
 
-variable "enable_http2" {
+variable "http2_enabled" {
   description = "Should HTTP/2 be supported by the API Management Service?"
   type        = bool
   default     = false
@@ -116,7 +116,7 @@ variable "enable_http2" {
 
 ## hostname_configurations
 
-variable "management_hostname_configuration" {
+variable "management_hostname_configurations" {
   description = "List of management hostname configurations."
   type = list(object({
     host_name                    = string
@@ -129,7 +129,7 @@ variable "management_hostname_configuration" {
   nullable = false
 }
 
-variable "portal_hostname_configuration" {
+variable "portal_hostname_configurations" {
   description = "Legacy Portal hostname configurations."
   type = list(object({
     host_name                    = string
@@ -142,7 +142,7 @@ variable "portal_hostname_configuration" {
   nullable = false
 }
 
-variable "developer_portal_hostname_configuration" {
+variable "developer_portal_hostname_configurations" {
   description = "Developer Portal hostname configurations."
   type = list(object({
     host_name                    = string
@@ -155,20 +155,21 @@ variable "developer_portal_hostname_configuration" {
   nullable = false
 }
 
-variable "proxy_hostname_configuration" {
+variable "proxy_hostname_configurations" {
   description = "List of proxy hostname configurations."
   type = list(object({
     host_name                    = string
     key_vault_id                 = optional(string)
     certificate                  = optional(string)
     certificate_password         = optional(string)
+    default_ssl_binding          = optional(bool, false)
     negotiate_client_certificate = optional(bool, false)
   }))
   default  = []
   nullable = false
 }
 
-variable "scm_hostname_configuration" {
+variable "scm_hostname_configurations" {
   description = "List of SCM hostname configurations."
   type = list(object({
     host_name                    = string
@@ -189,7 +190,7 @@ variable "notification_sender_email" {
   default     = null
 }
 
-variable "policy_configuration" {
+variable "policy_configurations" {
   description = "Policies configurations."
   type = list(object({
     name        = optional(string, "default")
@@ -213,25 +214,25 @@ variable "sign_up_enabled" {
 }
 
 variable "terms_of_service_configuration" {
-  description = "Terms of service configurations."
-  type = list(object({
+  description = "Terms of service configuration."
+  type = object({
     consent_required = optional(bool, false)
     enabled          = optional(bool, false)
     text             = optional(string, "")
-  }))
-  default  = []
+  })
+  default  = {}
   nullable = false
 }
 
 variable "security_configuration" {
   description = "Security configuration block."
   type = object({
-    enable_backend_ssl30  = optional(bool, false)
-    enable_backend_tls10  = optional(bool, false)
-    enable_backend_tls11  = optional(bool, false)
-    enable_frontend_ssl30 = optional(bool, false)
-    enable_frontend_tls10 = optional(bool, false)
-    enable_frontend_tls11 = optional(bool, false)
+    backend_ssl30_enabled  = optional(bool, false)
+    backend_tls10_enabled  = optional(bool, false)
+    backend_tls11_enabled  = optional(bool, false)
+    frontend_ssl30_enabled = optional(bool, false)
+    frontend_tls10_enabled = optional(bool, false)
+    frontend_tls11_enabled = optional(bool, false)
 
     tls_ecdhe_ecdsa_with_aes128_cbc_sha_ciphers_enabled = optional(bool, false)
     tls_ecdhe_ecdsa_with_aes256_cbc_sha_ciphers_enabled = optional(bool, false)
@@ -245,43 +246,43 @@ variable "security_configuration" {
 
     triple_des_ciphers_enabled = optional(bool, false)
   })
-  default = {}
+  default = null
 }
 
 ### NETWORKING
 
 variable "virtual_network_type" {
-  description = "The type of virtual network you want to use, valid values include: None, External, Internal."
+  description = "The type of Virtual Network you want to use, valid values include: `None`, `External` and `Internal`. Defaults to `None`."
+  type        = string
+  default     = "None"
+}
+
+variable "subnet_id" {
+  description = "ID of the Subnet that will be used for the API Management in current location. Required when `var.virtual_network_type` is `External` or `Internal`."
   type        = string
   default     = null
 }
 
-variable "virtual_network_configuration" {
-  description = "The id(s) of the subnet(s) that will be used for the API Management. Required when virtual_network_type is External or Internal"
-  type        = list(string)
-  default     = []
-}
-
 variable "nsg_name" {
-  description = "NSG name of the subnet hosting the APIM to add the rule to allow management if the APIM is private"
+  description = "NSG name of the subnet hosting the APIM to add the rule to allow management if the APIM is private."
   type        = string
   default     = null
 }
 
 variable "nsg_rg_name" {
-  description = "Name of the RG hosting the NSG if it's different from the one hosting the APIM"
+  description = "Name of the RG hosting the NSG if it's different from the one hosting the APIM."
   type        = string
   default     = null
 }
 
 variable "create_management_rule" {
-  description = "Whether to create the NSG rule for the management port of the APIM. If true, nsg_name variable must be set"
+  description = "Whether to create the NSG rule for the management port of the APIM. If true, nsg_name variable must be set."
   type        = bool
   default     = false
 }
 
 variable "management_nsg_rule_priority" {
-  description = "Priority of the NSG rule created for the management port of the APIM"
+  description = "Priority of the NSG rule created for the management port of the APIM."
   type        = number
   default     = 101
 }
@@ -297,7 +298,7 @@ variable "identity_type" {
 variable "identity_ids" {
   description = "A list of IDs for User Assigned Managed Identity resources to be assigned. This is required when type is set to `UserAssigned` or `SystemAssigned, UserAssigned`."
   type        = list(string)
-  default     = []
+  default     = null
 }
 
 variable "named_values" {
