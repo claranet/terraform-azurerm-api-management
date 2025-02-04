@@ -1,7 +1,7 @@
 resource "azurerm_api_management" "main" {
   name                = local.name
   location            = var.location
-  resource_group_name = var.nsg_rg_name == null ? one(azurerm_network_security_rule.main[*].resource_group_name) : var.resource_group_name
+  resource_group_name = var.resource_group_name
 
   publisher_name  = var.publisher_name
   publisher_email = var.publisher_email
