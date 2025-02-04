@@ -1,3 +1,14 @@
+## 8.0.1 (2025-02-04)
+
+### Bug Fixes
+
+* **AZ-1511:** revert changes on resource_group_name for apim resource 1516980
+
+### Miscellaneous Chores
+
+* **deps:** update tools 39aba90
+* update Github templates b6d50fb
+
 ## 8.0.0 (2025-01-24)
 
 ### ⚠ BREAKING CHANGES
