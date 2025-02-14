@@ -151,7 +151,7 @@ module "apim" {
 | sign\_in\_enabled | Should anonymous users be redirected to the sign in page? | `bool` | `false` | no |
 | sign\_up\_enabled | Can users sign up on the development portal? | `bool` | `false` | no |
 | sku\_capacity | APIM SKU capacity. | `number` | `1` | no |
-| sku\_tier | APIM SKU. Valid values include: Developer, Basic, Standard, StandardV2 and Premium. | `string` | `"Basic"` | no |
+| sku\_tier | APIM SKU. Valid values include: Developer, Basic, Standard, StandardV2 and Premium. | `string` | `"Premium"` | no |
 | stack | Project stack name. | `string` | n/a | yes |
 | subnet\_id | ID of the Subnet that will be used for the API Management in current location. Required when `var.virtual_network_type` is `External` or `Internal`. | `string` | `null` | no |
 | terms\_of\_service\_configuration | Terms of service configuration. | <pre>object({<br/>    consent_required = optional(bool, false)<br/>    enabled          = optional(bool, false)<br/>    text             = optional(string, "")<br/>  })</pre> | `{}` | no |
