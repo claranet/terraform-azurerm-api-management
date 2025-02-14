@@ -1,3 +1,14 @@
+## 8.0.2 (2025-02-14)
+
+### Bug Fixes
+
+* **AZ-1515:** fix additional_locations precondition 7fb80f0
+
+### Miscellaneous Chores
+
+* **AZ-1513:** add policy example 8ec3950
+* **deps:** update dependency trivy to v0.59.1 5876001
+
 ## 8.0.1 (2025-02-04)
 
 ### Bug Fixes
