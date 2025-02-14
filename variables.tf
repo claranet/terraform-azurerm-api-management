@@ -31,7 +31,7 @@ variable "resource_group_name" {
 variable "sku_tier" {
   description = "APIM SKU. Valid values include: Developer, Basic, Standard, StandardV2 and Premium."
   type        = string
-  default     = "Basic"
+  default     = "Premium"
 
   validation {
     condition     = contains(["Developer", "Basic", "Standard", "StandardV2", "Premium"], var.sku_tier)
