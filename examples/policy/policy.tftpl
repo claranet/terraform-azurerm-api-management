@@ -1,0 +1,17 @@
+<policies>
+  <inbound>
+    <ip-filter action="allow">
+      <address>168.63.129.16</address>
+      <address>169.254.169.254</address>
+      %{ for addr in allowed_cidrs ~}
+      <address-range from="${cidrhost(addr, 0)}" to="${cidrhost(addr, -1)}" />
+      %{ endfor ~}
+    </ip-filter>
+    <check-header name="X-Azure-FDID" failed-check-httpcode="403" failed-check-error-message="Invalid request." ignore-case="false">
+      <value>${afd_guid}</value>
+    </check-header>
+  </inbound>
+  <backend>
+    <forward-request />
+  </backend>
+</policies>
