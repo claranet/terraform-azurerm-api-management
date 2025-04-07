@@ -30,11 +30,15 @@ resource "azurerm_api_management_product" "main" {
 
   lifecycle {
     precondition {
-      condition     = alltrue([for p in var.products : !p.approval_required || p.subscription_required])
+      condition     = alltrue([for p in var.products : !p.approval_required || (p.approval_required && p.subscription_required)])
       error_message = "`var.products.approval_required` can only be set when `subscription_required` is set to true."
     }
     precondition {
-      condition     = alltrue([for p in var.products : !p.subscription_required || p.subscriptions_limit > 0])
+      condition     = alltrue([for p in var.products : !p.approval_required || (p.approval_required && p.subscriptions_limit > 0)])
+      error_message = "`var.products.subscriptions_limit` must be > 0 when `approval_required` is set to true."
+    }
+    precondition {
+      condition     = alltrue([for p in var.products : !p.subscription_required || (p.subscription_required && p.subscriptions_limit > 0)])
       error_message = "`var.products.subscriptions_limit` can only be set when `subscription_required` is set to true."
     }
   }
