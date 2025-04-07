@@ -313,14 +313,32 @@ variable "named_values" {
   nullable = false
 }
 
-variable "products" {
-  description = "List of products to create."
-  type        = list(string)
-  default     = []
+variable "groups" {
+  description = "List of Groups to create with options."
+  type = list(object({
+    name         = optional(string)
+    display_name = string
+    description  = optional(string)
+    type         = optional(string)
+    external_id  = optional(string)
+  }))
+  default  = []
+  nullable = false
 }
 
-variable "create_product_group_and_relationships" {
-  description = "Create local APIM groups with name identical to products and create a relationship between groups and products."
-  type        = bool
-  default     = false
+variable "products" {
+  description = "List of Products to create with options and Groups to associate to."
+  type = list(object({
+    product_id            = optional(string)
+    display_name          = string
+    description           = optional(string)
+    terms                 = optional(string)
+    subscription_required = optional(bool, true)
+    approval_required     = optional(bool, false)
+    published             = optional(bool, true)
+    subscriptions_limit   = optional(number, 1)
+    groups_names          = optional(list(string), [])
+  }))
+  default  = []
+  nullable = false
 }
