@@ -174,6 +174,9 @@ module "apim" {
 | private\_ip\_addresses | The Private IP addresses of the API Management Service. |
 | public\_ip\_addresses | The Public IP addresses of the API Management Service. |
 | resource | The API Management Service resource object. |
+| resource\_groups | List of groups created in the API Management instance. |
+| resource\_products | List of products created in the API Management instance. |
+| resource\_products\_groups | List of products and groups associations created in the API Management instance. |
 | scm\_url | The SCM Endpoint's URL of the API Management service. |
 <!-- END_TF_DOCS -->
 
