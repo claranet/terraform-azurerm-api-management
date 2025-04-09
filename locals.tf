@@ -7,4 +7,12 @@ locals {
       }
     ]
   ])
+
+  products_policies = {
+    for product_data in var.products :
+    product_data.display_name => {
+      link = try(startswith(product_data.policy, "http"), false) ? product_data.policy : null
+      xml  = try(startswith(product_data.policy, "<policies"), false) ? product_data.policy : null
+    } if product_data.policy != null
+  }
 }

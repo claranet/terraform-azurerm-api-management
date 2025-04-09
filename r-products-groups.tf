@@ -56,6 +56,18 @@ resource "azurerm_api_management_product_group" "main" {
   group_name = try(azurerm_api_management_group.main[each.value.group].name, lower(each.value.group))
 }
 
+resource "azurerm_api_management_product_policy" "main" {
+  for_each = local.products_policies
+
+  product_id = azurerm_api_management_product.main[each.key].product_id
+
+  resource_group_name = var.resource_group_name
+  api_management_name = azurerm_api_management.main.name
+
+  xml_content = each.value.xml
+  xml_link    = each.value.link
+}
+
 moved {
   from = azurerm_api_management_group.group
   to   = azurerm_api_management_group.main

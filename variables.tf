@@ -338,6 +338,7 @@ variable "products" {
     published             = optional(bool, true)
     subscriptions_limit   = optional(number, 1)
     groups_names          = optional(list(string), [])
+    policy                = optional(string)
   }))
   default  = []
   nullable = false
