@@ -52,6 +52,7 @@ resource "azurerm_api_management_product_group" "main" {
   resource_group_name = var.resource_group_name
   api_management_name = azurerm_api_management.main.name
 
+  # Associated groups can be user created or Azure built-ins
   group_name = try(azurerm_api_management_group.main[each.value.group].name, lower(each.value.group))
 }
 
