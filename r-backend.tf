@@ -13,7 +13,7 @@ resource "azurerm_api_management_backend" "main" {
   title       = each.value.title
 
   dynamic "credentials" {
-    for_each = each.value.credentials != null ? [each.value.credentials] : []
+    for_each = each.value.credentials[*]
     content {
       authorization {
         parameter = credentials.value.authorization.parameter
@@ -26,7 +26,7 @@ resource "azurerm_api_management_backend" "main" {
   }
 
   dynamic "proxy" {
-    for_each = each.value.proxy != null ? [each.value.proxy] : []
+    for_each = each.value.proxy[*]
     content {
       url      = proxy.value.url
       username = proxy.value.username
@@ -35,7 +35,7 @@ resource "azurerm_api_management_backend" "main" {
   }
 
   dynamic "tls" {
-    for_each = each.value.tls != null ? [each.value.tls] : []
+    for_each = each.value.tls[*]
     content {
       validate_certificate_chain = tls.value.validate_certificate_chain
       validate_certificate_name  = tls.value.validate_certificate_name

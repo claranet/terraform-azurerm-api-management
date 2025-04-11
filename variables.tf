@@ -345,7 +345,7 @@ variable "products" {
 }
 
 variable "backends" {
-  description = "List of Backend configurations for the API Management service."
+  description = "List of backend configurations for the API Management service."
   type = list(object({
     name        = string
     protocol    = string
