@@ -1,3 +1,30 @@
+## 8.1.0 (2025-04-11)
+
+### Features
+
+* **AZ-1547:** add Product Policies option 52e2a6b
+* **AZ-1547:** handle Products and Groups with their options ede73d5
+
+### Bug Fixes
+
+* **AZ-1547:** more explicit pre-condition validations f6871e8
+
+### Documentation
+
+* add comment 0be8815
+* add outputs b365285
+
+### Miscellaneous Chores
+
+* **deps:** update dependency pre-commit to v4.2.0 3c1867a
+* **deps:** update dependency terraform-docs to v0.20.0 5f31701
+* **deps:** update dependency tflint to v0.56.0 eff886e
+* **deps:** update dependency trivy to v0.60.0 f4a84d5
+* **deps:** update dependency trivy to v0.61.0 5ca1625
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.21.0 416e0e3
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.22.0 2a2afb9
+* **deps:** update pre-commit hook tofuutils/pre-commit-opentofu to v2.2.0 8fbbd36
+
 ## 8.0.2 (2025-02-14)
 
 ### Bug Fixes
