@@ -100,6 +100,7 @@ module "apim" {
 | [azurerm_api_management_policy.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_policy) | resource |
 | [azurerm_api_management_product.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_product) | resource |
 | [azurerm_api_management_product_group.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_product_group) | resource |
+| [azurerm_api_management_product_policy.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_product_policy) | resource |
 | [azurerm_network_security_rule.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_rule) | resource |
 | [azurecaf_name.apim](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
 | [azurecaf_name.apim_nsg_rule](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
@@ -113,7 +114,6 @@ module "apim" {
 | client\_certificate\_enabled | (Optional) Enforce a client certificate to be presented on each request to the gateway? This is only supported when SKU type is `Consumption`. | `bool` | `false` | no |
 | client\_name | Client name/account used in naming. | `string` | n/a | yes |
 | create\_management\_rule | Whether to create the NSG rule for the management port of the APIM. If true, nsg\_name variable must be set. | `bool` | `false` | no |
-| create\_product\_group\_and\_relationships | Create local APIM groups with name identical to products and create a relationship between groups and products. | `bool` | `false` | no |
 | custom\_name | Custom API Management name, generated if not set. | `string` | `""` | no |
 | default\_tags\_enabled | Option to enable or disable default tags. | `bool` | `true` | no |
 | developer\_portal\_hostname\_configurations | Developer Portal hostname configurations. | <pre>list(object({<br/>    host_name                    = string<br/>    key_vault_id                 = optional(string)<br/>    certificate                  = optional(string)<br/>    certificate_password         = optional(string)<br/>    negotiate_client_certificate = optional(bool, false)<br/>  }))</pre> | `[]` | no |
@@ -121,6 +121,7 @@ module "apim" {
 | environment | Project environment. | `string` | n/a | yes |
 | extra\_tags | Extra tags to add. | `map(string)` | `{}` | no |
 | gateway\_enabled | Whether enable or disable the gateway in main region? Can be disabled only when `additional_locations` is set. | `bool` | `true` | no |
+| groups | List of Groups to create with options. | <pre>list(object({<br/>    name         = optional(string)<br/>    display_name = string<br/>    description  = optional(string)<br/>    type         = optional(string)<br/>    external_id  = optional(string)<br/>  }))</pre> | `[]` | no |
 | http2\_enabled | Should HTTP/2 be supported by the API Management Service? | `bool` | `false` | no |
 | identity\_ids | A list of IDs for User Assigned Managed Identity resources to be assigned. This is required when type is set to `UserAssigned` or `SystemAssigned, UserAssigned`. | `list(string)` | `null` | no |
 | identity\_type | Type of Managed Service Identity that should be configured on this API Management Service. | `string` | `"SystemAssigned"` | no |
@@ -141,7 +142,7 @@ module "apim" {
 | nsg\_rg\_name | Name of the RG hosting the NSG if it's different from the one hosting the APIM. | `string` | `null` | no |
 | policy\_configurations | Policies configurations. | <pre>list(object({<br/>    name        = optional(string, "default")<br/>    xml_content = optional(string)<br/>    xml_link    = optional(string)<br/>  }))</pre> | `[]` | no |
 | portal\_hostname\_configurations | Legacy Portal hostname configurations. | <pre>list(object({<br/>    host_name                    = string<br/>    key_vault_id                 = optional(string)<br/>    certificate                  = optional(string)<br/>    certificate_password         = optional(string)<br/>    negotiate_client_certificate = optional(bool, false)<br/>  }))</pre> | `[]` | no |
-| products | List of products to create. | `list(string)` | `[]` | no |
+| products | List of Products to create with options and Groups to associate to. | <pre>list(object({<br/>    product_id            = optional(string)<br/>    display_name          = string<br/>    description           = optional(string)<br/>    terms                 = optional(string)<br/>    subscription_required = optional(bool, true)<br/>    approval_required     = optional(bool, false)<br/>    published             = optional(bool, true)<br/>    subscriptions_limit   = optional(number, 1)<br/>    groups_names          = optional(list(string), [])<br/>    policy                = optional(string)<br/>  }))</pre> | `[]` | no |
 | proxy\_hostname\_configurations | List of proxy hostname configurations. | <pre>list(object({<br/>    host_name                    = string<br/>    key_vault_id                 = optional(string)<br/>    certificate                  = optional(string)<br/>    certificate_password         = optional(string)<br/>    default_ssl_binding          = optional(bool, false)<br/>    negotiate_client_certificate = optional(bool, false)<br/>  }))</pre> | `[]` | no |
 | publisher\_email | The email of publisher/company. | `string` | n/a | yes |
 | publisher\_name | The name of publisher/company. | `string` | n/a | yes |
@@ -174,6 +175,10 @@ module "apim" {
 | private\_ip\_addresses | The Private IP addresses of the API Management Service. |
 | public\_ip\_addresses | The Public IP addresses of the API Management Service. |
 | resource | The API Management Service resource object. |
+| resource\_groups | List of groups created in the API Management instance. |
+| resource\_products | List of products created in the API Management instance. |
+| resource\_products\_groups | List of products and groups associations created in the API Management instance. |
+| resource\_products\_policies | List of policies associated with products in the API Management instance. |
 | scm\_url | The SCM Endpoint's URL of the API Management service. |
 <!-- END_TF_DOCS -->
 
