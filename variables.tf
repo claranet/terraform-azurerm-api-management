@@ -343,3 +343,38 @@ variable "products" {
   default  = []
   nullable = false
 }
+
+variable "backends" {
+  description = "List of backend configurations for the API Management service."
+  type = list(object({
+    name        = string
+    protocol    = string
+    url         = string
+    description = optional(string)
+    resource_id = optional(string)
+    title       = optional(string)
+
+    credentials = optional(object({
+      authorization = optional(object({
+        parameter = string
+        scheme    = string
+      }))
+      certificate = optional(list(string))
+      header      = optional(map(string))
+      query       = optional(map(string))
+    }))
+
+    proxy = optional(object({
+      url      = string
+      username = string
+      password = string
+    }))
+
+    tls = optional(object({
+      validate_certificate_chain = optional(bool)
+      validate_certificate_name  = optional(bool)
+    }))
+  }))
+  default  = []
+  nullable = false
+}

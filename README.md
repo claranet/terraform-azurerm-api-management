@@ -95,6 +95,7 @@ module "apim" {
 | Name | Type |
 |------|------|
 | [azurerm_api_management.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management) | resource |
+| [azurerm_api_management_backend.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_backend) | resource |
 | [azurerm_api_management_group.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_group) | resource |
 | [azurerm_api_management_named_value.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_named_value) | resource |
 | [azurerm_api_management_policy.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_policy) | resource |
@@ -110,6 +111,7 @@ module "apim" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | additional\_locations | List of Azure Regions in which the API Management service should be expanded to. | <pre>list(object({<br/>    location             = string<br/>    capacity             = optional(number)<br/>    zones                = optional(list(number), [1, 2, 3])<br/>    public_ip_address_id = optional(string)<br/>    subnet_id            = optional(string)<br/>  }))</pre> | `[]` | no |
+| backends | List of backend configurations for the API Management service. | <pre>list(object({<br/>    name        = string<br/>    protocol    = string<br/>    url         = string<br/>    description = optional(string)<br/>    resource_id = optional(string)<br/>    title       = optional(string)<br/><br/>    credentials = optional(object({<br/>      authorization = optional(object({<br/>        parameter = string<br/>        scheme    = string<br/>      }))<br/>      certificate = optional(list(string))<br/>      header      = optional(map(string))<br/>      query       = optional(map(string))<br/>    }))<br/><br/>    proxy = optional(object({<br/>      url      = string<br/>      username = string<br/>      password = string<br/>    }))<br/><br/>    tls = optional(object({<br/>      validate_certificate_chain = optional(bool)<br/>      validate_certificate_name  = optional(bool)<br/>    }))<br/>  }))</pre> | `[]` | no |
 | certificate\_configurations | List of certificate configurations. | <pre>list(object({<br/>    encoded_certificate  = string<br/>    certificate_password = optional(string)<br/>    store_name           = string<br/>  }))</pre> | `[]` | no |
 | client\_certificate\_enabled | (Optional) Enforce a client certificate to be presented on each request to the gateway? This is only supported when SKU type is `Consumption`. | `bool` | `false` | no |
 | client\_name | Client name/account used in naming. | `string` | n/a | yes |
