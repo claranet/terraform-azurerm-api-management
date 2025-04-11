@@ -1,3 +1,17 @@
+## 8.2.0 (2025-04-11)
+
+### Features
+
+* **AZ-1547:** adds backend configuration support for API Management 1e80a38
+
+### Code Refactoring
+
+* apply mrAI suggestion 5fadda1
+
+### Miscellaneous Chores
+
+* apply 4 suggestion(s) to 2 file(s) fc732a2
+
 ## 8.1.0 (2025-04-11)
 
 ### Features
