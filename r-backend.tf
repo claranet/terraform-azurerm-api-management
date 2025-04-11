@@ -15,9 +15,12 @@ resource "azurerm_api_management_backend" "main" {
   dynamic "credentials" {
     for_each = each.value.credentials[*]
     content {
-      authorization {
-        parameter = credentials.value.authorization.parameter
-        scheme    = credentials.value.authorization.scheme
+      dynamic "authorization" {
+        for_each = credentials.value.authorization[*]
+        content {
+          parameter = authorization.value.parameter
+          scheme    = authorization.value.scheme
+        }
       }
       certificate = credentials.value.certificate
       header      = credentials.value.header
