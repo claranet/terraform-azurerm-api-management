@@ -80,20 +80,20 @@ module "apim" {
 ## Providers
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | azurecaf | >= 1.2.28 |
 | azurerm | ~> 4.31 |
 
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | diagnostics | claranet/diagnostic-settings/azurerm | ~> 8.2.0 |
 
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [azurerm_api_management.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management) | resource |
 | [azurerm_api_management_backend.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_backend) | resource |
 | [azurerm_api_management_group.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_group) | resource |
@@ -109,7 +109,7 @@ module "apim" {
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | additional\_locations | List of Azure Regions in which the API Management service should be expanded to. | <pre>list(object({<br/>    location             = string<br/>    capacity             = optional(number)<br/>    zones                = optional(list(number), [1, 2, 3])<br/>    public_ip_address_id = optional(string)<br/>    subnet_id            = optional(string)<br/>  }))</pre> | `[]` | no |
 | backends | List of backend configurations for the API Management service. | <pre>list(object({<br/>    name        = string<br/>    protocol    = string<br/>    url         = string<br/>    description = optional(string)<br/>    resource_id = optional(string)<br/>    title       = optional(string)<br/><br/>    credentials = optional(object({<br/>      authorization = optional(object({<br/>        parameter = string<br/>        scheme    = string<br/>      }))<br/>      certificate = optional(list(string))<br/>      header      = optional(map(string))<br/>      query       = optional(map(string))<br/>    }))<br/><br/>    proxy = optional(object({<br/>      url      = string<br/>      username = string<br/>      password = string<br/>    }))<br/><br/>    tls = optional(object({<br/>      validate_certificate_chain = optional(bool)<br/>      validate_certificate_name  = optional(bool)<br/>    }))<br/>  }))</pre> | `[]` | no |
 | certificate\_configurations | List of certificate configurations. | <pre>list(object({<br/>    encoded_certificate  = string<br/>    certificate_password = optional(string)<br/>    store_name           = string<br/>  }))</pre> | `[]` | no |
@@ -164,7 +164,7 @@ module "apim" {
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | additional\_locations | Map listing `gateway_regional_url` and `public_ip_addresses` associated. |
 | gateway\_regional\_url | The gateway's regional URL of the API Management Service. |
 | gateway\_url | The gateway's URL of the API Management Service. |
