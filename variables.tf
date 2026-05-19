@@ -120,7 +120,7 @@ variable "management_hostname_configurations" {
   description = "List of management hostname configurations."
   type = list(object({
     host_name                    = string
-    key_vault_id                 = optional(string)
+    key_vault_certificate_id     = optional(string)
     certificate                  = optional(string)
     certificate_password         = optional(string)
     negotiate_client_certificate = optional(bool, false)
@@ -133,7 +133,7 @@ variable "portal_hostname_configurations" {
   description = "Legacy Portal hostname configurations."
   type = list(object({
     host_name                    = string
-    key_vault_id                 = optional(string)
+    key_vault_certificate_id     = optional(string)
     certificate                  = optional(string)
     certificate_password         = optional(string)
     negotiate_client_certificate = optional(bool, false)
@@ -146,7 +146,7 @@ variable "developer_portal_hostname_configurations" {
   description = "Developer Portal hostname configurations."
   type = list(object({
     host_name                    = string
-    key_vault_id                 = optional(string)
+    key_vault_certificate_id     = optional(string)
     certificate                  = optional(string)
     certificate_password         = optional(string)
     negotiate_client_certificate = optional(bool, false)
@@ -159,7 +159,7 @@ variable "proxy_hostname_configurations" {
   description = "List of proxy hostname configurations."
   type = list(object({
     host_name                    = string
-    key_vault_id                 = optional(string)
+    key_vault_certificate_id     = optional(string)
     certificate                  = optional(string)
     certificate_password         = optional(string)
     default_ssl_binding          = optional(bool, false)
@@ -173,7 +173,7 @@ variable "scm_hostname_configurations" {
   description = "List of SCM hostname configurations."
   type = list(object({
     host_name                    = string
-    key_vault_id                 = optional(string)
+    key_vault_certificate_id     = optional(string)
     certificate                  = optional(string)
     certificate_password         = optional(string)
     negotiate_client_certificate = optional(bool, false)

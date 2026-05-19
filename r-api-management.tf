@@ -57,7 +57,7 @@ resource "azurerm_api_management" "main" {
         for_each = var.management_hostname_configurations
         content {
           host_name                    = management.value.host_name
-          key_vault_id                 = management.value.key_vault_id
+          key_vault_certificate_id     = management.value.key_vault_certificate_id
           certificate                  = management.value.certificate
           certificate_password         = management.value.certificate_password
           negotiate_client_certificate = management.value.negotiate_client_certificate
@@ -68,7 +68,7 @@ resource "azurerm_api_management" "main" {
         for_each = var.portal_hostname_configurations
         content {
           host_name                    = portal.value.host_name
-          key_vault_id                 = portal.value.key_vault_id
+          key_vault_certificate_id     = portal.value.key_vault_certificate_id
           certificate                  = portal.value.certificate
           certificate_password         = portal.value.certificate_password
           negotiate_client_certificate = portal.value.negotiate_client_certificate
@@ -79,7 +79,7 @@ resource "azurerm_api_management" "main" {
         for_each = var.developer_portal_hostname_configurations
         content {
           host_name                    = developer_portal.value.host_name
-          key_vault_id                 = developer_portal.value.key_vault_id
+          key_vault_certificate_id     = developer_portal.value.key_vault_certificate_id
           certificate                  = developer_portal.value.certificate
           certificate_password         = developer_portal.value.certificate_password
           negotiate_client_certificate = developer_portal.value.negotiate_client_certificate
@@ -91,7 +91,7 @@ resource "azurerm_api_management" "main" {
         content {
           host_name                    = proxy.value.host_name
           default_ssl_binding          = proxy.value.default_ssl_binding
-          key_vault_id                 = proxy.value.key_vault_id
+          key_vault_certificate_id     = proxy.value.key_vault_certificate_id
           certificate                  = proxy.value.certificate
           certificate_password         = proxy.value.certificate_password
           negotiate_client_certificate = proxy.value.negotiate_client_certificate
@@ -102,7 +102,7 @@ resource "azurerm_api_management" "main" {
         for_each = var.scm_hostname_configurations
         content {
           host_name                    = scm.value.host_name
-          key_vault_id                 = scm.value.key_vault_id
+          key_vault_certificate_id     = scm.value.key_vault_certificate_id
           certificate                  = scm.value.certificate
           certificate_password         = scm.value.certificate_password
           negotiate_client_certificate = scm.value.negotiate_client_certificate
