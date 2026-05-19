@@ -173,8 +173,8 @@ resource "azurerm_api_management" "main" {
 
   lifecycle {
     precondition {
-      condition     = var.sku_tier == "Premium" || (var.sku_tier != "Premium" && alltrue([for l in var.additional_locations : length(l.zones) == 0 && l.public_ip_address_id == null]))
-      error_message = "Zones and custom public IPs are only supported in the Premium SKU tier."
+      condition     = contains(["Premium", "PremiumV2"], var.sku_tier) || (var.sku_tier != "Premium" && var.sku_tier != "PremiumV2" && alltrue([for l in var.additional_locations : length(l.zones) == 0 && l.public_ip_address_id == null]))
+      error_message = "Zones and custom public IPs are only supported in the Premium and PremiumV2 SKU tiers."
     }
   }
 }

@@ -29,13 +29,13 @@ variable "resource_group_name" {
 }
 
 variable "sku_tier" {
-  description = "APIM SKU. Valid values include: Developer, Basic, Standard, StandardV2 and Premium."
+  description = "APIM SKU. Valid values include: Consumption, Developer, Basic, BasicV2, Standard, StandardV2, Premium and PremiumV2."
   type        = string
   default     = "Premium"
 
   validation {
-    condition     = contains(["Developer", "Basic", "Standard", "StandardV2", "Premium"], var.sku_tier)
-    error_message = "Invalid SKU tier. Valid values include: Developer, Basic, Standard, StandardV2 and Premium."
+    condition     = contains(["Consumption", "Developer", "Basic", "BasicV2", "Standard", "StandardV2", "Premium", "PremiumV2"], var.sku_tier)
+    error_message = "Invalid SKU tier. Valid values include: Consumption, Developer, Basic, BasicV2, Standard, StandardV2, Premium and PremiumV2."
   }
 }
 
