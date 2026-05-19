@@ -114,7 +114,7 @@ resource "azurerm_api_management" "main" {
   notification_sender_email = var.notification_sender_email
 
   protocols {
-    enable_http2 = var.http2_enabled
+    http2_enabled = var.http2_enabled
   }
 
   dynamic "security" {
