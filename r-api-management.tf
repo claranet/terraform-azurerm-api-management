@@ -173,8 +173,12 @@ resource "azurerm_api_management" "main" {
 
   lifecycle {
     precondition {
-      condition     = contains(["Premium", "PremiumV2"], var.sku_tier) || (var.sku_tier != "Premium" && var.sku_tier != "PremiumV2" && alltrue([for l in var.additional_locations : length(l.zones) == 0 && l.public_ip_address_id == null]))
-      error_message = "Zones and custom public IPs are only supported in the Premium and PremiumV2 SKU tiers."
+      condition     = contains(["Premium", "PremiumV2"], var.sku_tier) || (var.sku_tier != "Premium" && var.sku_tier != "PremiumV2" && alltrue([for l in var.additional_locations : length(l.zones) == 0]))
+      error_message = "Zones are only supported in the Premium and PremiumV2 SKU tiers."
+    }
+    precondition {
+      condition     = contains(["Premium", "PremiumV2"], var.sku_tier) || (var.sku_tier == "Developer" && var.virtual_network_type != "None") || (!contains(["Premium", "PremiumV2", "Developer"], var.sku_tier) && alltrue([for l in var.additional_locations : l.public_ip_address_id == null]))
+      error_message = "Custom public IPs are only supported on the Premium and Developer tiers when deployed in a virtual network."
     }
   }
 }
