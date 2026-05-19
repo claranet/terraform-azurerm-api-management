@@ -120,12 +120,12 @@ resource "azurerm_api_management" "main" {
   dynamic "security" {
     for_each = var.security_configuration[*]
     content {
-      enable_backend_ssl30  = security.value.backend_ssl30_enabled
-      enable_backend_tls10  = security.value.backend_tls10_enabled
-      enable_backend_tls11  = security.value.backend_tls11_enabled
-      enable_frontend_ssl30 = security.value.frontend_ssl30_enabled
-      enable_frontend_tls10 = security.value.frontend_tls10_enabled
-      enable_frontend_tls11 = security.value.frontend_tls11_enabled
+      backend_ssl30_enabled  = security.value.backend_ssl30_enabled
+      backend_tls10_enabled  = security.value.backend_tls10_enabled
+      backend_tls11_enabled  = security.value.backend_tls11_enabled
+      frontend_ssl30_enabled = security.value.frontend_ssl30_enabled
+      frontend_tls10_enabled = security.value.frontend_tls10_enabled
+      frontend_tls11_enabled = security.value.frontend_tls11_enabled
 
       tls_ecdhe_ecdsa_with_aes128_cbc_sha_ciphers_enabled = security.value.tls_ecdhe_ecdsa_with_aes128_cbc_sha_ciphers_enabled
       tls_ecdhe_ecdsa_with_aes256_cbc_sha_ciphers_enabled = security.value.tls_ecdhe_ecdsa_with_aes256_cbc_sha_ciphers_enabled
