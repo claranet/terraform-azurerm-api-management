@@ -1,3 +1,29 @@
+## 8.3.0 (2026-05-29)
+
+### Features
+
+* add Consumption, BasicV2 and PremiumV2 SKU tiers ✨ 1ab744a
+
+### Bug Fixes
+
+* **lifecycle:** split precondition to allow custom public IPs on Developer tier in VNet 🔧 c966d0d
+* replace deprecated enable_backend_* and enable_frontend_* with *_enabled 🔧 ea4f7d8
+* replace deprecated enable_http2 with http2_enabled 🔧 02b722c
+* replace deprecated key_vault_id with key_vault_certificate_id 🔧 3a3a3b6
+
+### Miscellaneous Chores
+
+* **deps:** 🔗 bump tools 98d9105
+* **deps:** 🔗 update mise conf for OpenTofu 4b8bddf
+* **deps:** update dependency opentofu to v1.11.7 cf3038e
+* **deps:** update dependency terraform-docs to v0.23.0 2dff77f
+* **deps:** update dependency terraform-docs to v0.24.0 e875e9e
+* **deps:** update dependency tflint to v0.62.1 d98e985
+* **deps:** update pre-commit hook tofuutils/pre-commit-opentofu to v2.3.0 9ef4912
+* **deps:** update tools af73e01
+* **pre-commit:** 🔧 move to prek 8de4d52
+* **tfdocs:** bump tfdocs to v0.22 🔧 4d80e22
+
 ## 8.2.3 (2026-03-27)
 
 ### Bug Fixes
