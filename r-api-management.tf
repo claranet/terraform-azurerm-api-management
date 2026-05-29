@@ -57,7 +57,7 @@ resource "azurerm_api_management" "main" {
         for_each = var.management_hostname_configurations
         content {
           host_name                    = management.value.host_name
-          key_vault_id                 = management.value.key_vault_id
+          key_vault_certificate_id     = management.value.key_vault_certificate_id
           certificate                  = management.value.certificate
           certificate_password         = management.value.certificate_password
           negotiate_client_certificate = management.value.negotiate_client_certificate
@@ -68,7 +68,7 @@ resource "azurerm_api_management" "main" {
         for_each = var.portal_hostname_configurations
         content {
           host_name                    = portal.value.host_name
-          key_vault_id                 = portal.value.key_vault_id
+          key_vault_certificate_id     = portal.value.key_vault_certificate_id
           certificate                  = portal.value.certificate
           certificate_password         = portal.value.certificate_password
           negotiate_client_certificate = portal.value.negotiate_client_certificate
@@ -79,7 +79,7 @@ resource "azurerm_api_management" "main" {
         for_each = var.developer_portal_hostname_configurations
         content {
           host_name                    = developer_portal.value.host_name
-          key_vault_id                 = developer_portal.value.key_vault_id
+          key_vault_certificate_id     = developer_portal.value.key_vault_certificate_id
           certificate                  = developer_portal.value.certificate
           certificate_password         = developer_portal.value.certificate_password
           negotiate_client_certificate = developer_portal.value.negotiate_client_certificate
@@ -91,7 +91,7 @@ resource "azurerm_api_management" "main" {
         content {
           host_name                    = proxy.value.host_name
           default_ssl_binding          = proxy.value.default_ssl_binding
-          key_vault_id                 = proxy.value.key_vault_id
+          key_vault_certificate_id     = proxy.value.key_vault_certificate_id
           certificate                  = proxy.value.certificate
           certificate_password         = proxy.value.certificate_password
           negotiate_client_certificate = proxy.value.negotiate_client_certificate
@@ -102,7 +102,7 @@ resource "azurerm_api_management" "main" {
         for_each = var.scm_hostname_configurations
         content {
           host_name                    = scm.value.host_name
-          key_vault_id                 = scm.value.key_vault_id
+          key_vault_certificate_id     = scm.value.key_vault_certificate_id
           certificate                  = scm.value.certificate
           certificate_password         = scm.value.certificate_password
           negotiate_client_certificate = scm.value.negotiate_client_certificate
@@ -114,18 +114,18 @@ resource "azurerm_api_management" "main" {
   notification_sender_email = var.notification_sender_email
 
   protocols {
-    enable_http2 = var.http2_enabled
+    http2_enabled = var.http2_enabled
   }
 
   dynamic "security" {
     for_each = var.security_configuration[*]
     content {
-      enable_backend_ssl30  = security.value.backend_ssl30_enabled
-      enable_backend_tls10  = security.value.backend_tls10_enabled
-      enable_backend_tls11  = security.value.backend_tls11_enabled
-      enable_frontend_ssl30 = security.value.frontend_ssl30_enabled
-      enable_frontend_tls10 = security.value.frontend_tls10_enabled
-      enable_frontend_tls11 = security.value.frontend_tls11_enabled
+      backend_ssl30_enabled  = security.value.backend_ssl30_enabled
+      backend_tls10_enabled  = security.value.backend_tls10_enabled
+      backend_tls11_enabled  = security.value.backend_tls11_enabled
+      frontend_ssl30_enabled = security.value.frontend_ssl30_enabled
+      frontend_tls10_enabled = security.value.frontend_tls10_enabled
+      frontend_tls11_enabled = security.value.frontend_tls11_enabled
 
       tls_ecdhe_ecdsa_with_aes128_cbc_sha_ciphers_enabled = security.value.tls_ecdhe_ecdsa_with_aes128_cbc_sha_ciphers_enabled
       tls_ecdhe_ecdsa_with_aes256_cbc_sha_ciphers_enabled = security.value.tls_ecdhe_ecdsa_with_aes256_cbc_sha_ciphers_enabled
@@ -173,8 +173,12 @@ resource "azurerm_api_management" "main" {
 
   lifecycle {
     precondition {
-      condition     = var.sku_tier == "Premium" || (var.sku_tier != "Premium" && alltrue([for l in var.additional_locations : length(l.zones) == 0 && l.public_ip_address_id == null]))
-      error_message = "Zones and custom public IPs are only supported in the Premium SKU tier."
+      condition     = contains(["Premium", "PremiumV2"], var.sku_tier) || (var.sku_tier != "Premium" && var.sku_tier != "PremiumV2" && alltrue([for l in var.additional_locations : length(l.zones) == 0]))
+      error_message = "Zones are only supported in the Premium and PremiumV2 SKU tiers."
+    }
+    precondition {
+      condition     = contains(["Premium", "PremiumV2"], var.sku_tier) || (var.sku_tier == "Developer" && var.virtual_network_type != "None") || (!contains(["Premium", "PremiumV2", "Developer"], var.sku_tier) && alltrue([for l in var.additional_locations : l.public_ip_address_id == null]))
+      error_message = "Custom public IPs are only supported on the Premium and Developer tiers when deployed in a virtual network."
     }
   }
 }
