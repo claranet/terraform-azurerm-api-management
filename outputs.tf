@@ -1,6 +1,7 @@
 output "resource" {
   description = "The API Management Service resource object."
   value       = azurerm_api_management.main
+  sensitive   = true
 }
 
 output "module_diagnostics" {
